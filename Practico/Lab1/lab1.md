@@ -1,78 +1,60 @@
-# Título
+# Parte I - Configuración y Análisis de tráfico IPv4/IPv6
+**Integrantes**  
+- Gaston Fernandez
+- Maria Lujan Guimpelevich
+- David Trujillo
+- Milagros Venecia
 
-**Nombres**  
-_Nombre Apellidos; usar iniciales para el segundo nombre_  
-**Nombre del grupo**, si corresponde  
+**Nombre del grupo**
+ "Taylor Switch"
 
-**Nombre del centro educativo o institución**  
-**Nombre del curso o materia** (para publicaciones de alumnos)  
-**Profesores** (para publicaciones de alumnos)  
-**Fecha** (para publicaciones de alumnos)  
+**Universidad Nacional de Cordoba - FCEFyN**  
 
----
+**Cátedra de Redes de computadoras**
 
-### Información de los autores
- 
-- **Información de contacto**: _correo electrónico_  
-
----
-
-## Resumen
-
-Un párrafo, sin sangría. Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto Escribe aquí tu texto. 
-
-**Palabras clave**: primera línea con sangría, _Escribe, aquí, tu texto_
+ **17 de Marzo 2025**  
 
 ---
+# Consignas
 
-## Introducción
+## 1- Marco Teórico
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, mauris sit amet aliquet vestibulum, enim ante consectetur enim, vel sollicitudin odio risus vel libero. Integer eget ipsum sed eros luctus laoreet vel vel leo. Fusce ut dapibus nisl. Aliquam erat volutpat. Donec in elit non justo convallis vestibulum. Fusce malesuada, sapien nec consequat dignissim, lorem eros suscipit nulla, non gravida magna libero id turpis. Suspendisse potenti. Maecenas quis mauris dui. Nunc accumsan, lorem vitae posuere fringilla, lacus mauris convallis magna, nec interdum nunc tortor vel sem. Integer sit amet sollicitudin ipsum. In hac habitasse platea dictumst. Sed vitae est id dui fringilla mollis. Vivamus varius vestibulum consequat. Sed posuere consequat dolor, sit amet suscipit lorem cursus id.
+**Dual Stack**  
 
----
+El término dual stack se refiere a la implementación simultánea de los protocolos IPv4 e IPv6 en una misma infraestructura de red. Esto permite la coexistencia de ambos protocolos, facilitando la transición hacia IPv6 sin perder compatibilidad con dispositivos o servicios que aún operan con IPv4.
 
-# Marco teórico / Modelo / Metodología
+El dual stack se logra configurando interfaces de red para que soporten ambas pilas de protocolo, asignando una dirección IPv4 y una dirección IPv6 a cada interfaz. De esta manera, las aplicaciones pueden usar cualquiera de los dos protocolos según lo requieran.
 
-## Nivel de título 2
+**Protocolos de Comunicación (ARP,NDP e ICMP)** 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, mauris sit amet aliquet vestibulum, enim ante consectetur enim, vel sollicitudin odio risus vel libero. Integer eget ipsum sed eros luctus laoreet vel vel leo. Fusce ut dapibus nisl. Aliquam erat volutpat. Donec in elit non justo convallis vestibulum.
+- **ARP (Address Resolution Protocol):** Es un protocolo de la capa de red utilizado para resolver direcciones IP en direcciones MAC en redes IPv4. Cuando un dispositivo desea comunicarse con otro en la misma red local, utiliza ARP para descubrir la dirección física asociada a una dirección IP.
 
-`codigo`
+- **NDP (Neighbor Discovery Protocol):** Es el protocolo equivalente a ARP en redes IPv6. Además de la resolución de direcciones, NDP realiza tareas adicionales, como la autoconfiguración de direcciones y la detección de duplicados. Utiliza mensajes ICMPv6 para intercambiar información entre dispositivos.
 
-### Nivel de título 3
+- **ICMP (Internet Control Message Protocol):** Es un protocolo de diagnóstico y control utilizado tanto en IPv4 como en IPv6. Permite la notificación de errores y el envío de mensajes de control, como en el caso de los comandos ping y traceroute. En IPv6, ICMP también incluye funcionalidades adicionales a través de ICMPv6.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, mauris sit amet aliquet vestibulum, enim ante consectetur enim, vel sollicitudin odio risus vel libero. Integer eget ipsum sed eros luctus laoreet vel vel leo. Fusce ut dapibus nisl. Aliquam erat volutpat. Donec in elit non justo convallis vestibulum.
+**Asignación de Direcciones IP (DHCP)** 
 
-| Ejemplo | Tabla |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+El *Dynamic Host Configuration Protocol (DHCP)* es un protocolo utilizado para asignar direcciones IP de manera dinámica a los dispositivos en una red. En el contexto de dual stack, pueden coexistir dos servicios DHCP:
 
-```
-// Más código
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
-}
-```
+- **DHCPv4:** Asigna direcciones IPv4 a dispositivos que utilizan este protocolo.
 
----
+- **DHCPv6:** Realiza la asignación automática de direcciones IPv6, así como otros parámetros de configuración.
 
-## Resultados
+**Asignación de Direcciones IP (DHCP)** 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, mauris sit amet aliquet vestibulum, enim ante consectetur enim, vel sollicitudin odio risus vel libero. Integer eget ipsum sed eros luctus laoreet vel vel leo. Fusce ut dapibus nisl. Aliquam erat volutpat. Donec in elit non justo convallis vestibulum.
+El enrutamiento en redes dual stack implica la coexistencia de rutas IPv4 e IPv6 en los dispositivos de red. Los routers configurados para dual stack manejan ambas pilas simultáneamente, realizando encaminamiento según el tipo de dirección de destino. Para garantizar la conectividad, los routers mantienen tablas de enrutamiento separadas para cada protocolo.
 
----
+La correcta configuración y monitoreo de las rutas es fundamental para evitar conflictos y asegurar el rendimiento de la red en un entorno híbrido.
 
-## Discusión y conclusiones
+## 2-
+## 3-
+## 4-
+## 5-
+## 6-
+## 7-
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, mauris sit amet aliquet vestibulum, enim ante consectetur enim, vel sollicitudin odio risus vel libero. Integer eget ipsum sed eros luctus laoreet vel vel leo. Fusce ut dapibus nisl. Aliquam erat volutpat. Donec in elit non justo convallis vestibulum.
 
-## Referencias
 
-[1] Consultar [Normas APA](https://normas-apa.org/referencias/)
 
-[2] ...
 
-[3] ...
