@@ -4,6 +4,7 @@
 - Maria Lujan Guimpelevich
 - David Trujillo
 - Milagros Venecia
+- Karen Yesica Robles
 
 **Nombre del grupo**
  "Taylor Switch"
@@ -48,6 +49,30 @@ El enrutamiento en redes dual stack implica la coexistencia de rutas IPv4 e IPv6
 La correcta configuración y monitoreo de las rutas es fundamental para evitar conflictos y asegurar el rendimiento de la red en un entorno híbrido.
 
 ## 2-
+**Diagrama de red propuesto:**
+<p align="center"><img src="/Practico/Lab1/Imagenes_tp1/9.jpg " alt="Diagrama"></p>
+
+**Tabla de asignación de direcciones propuestas:**
+
+![Tabla de asignacion IP](/Practico/Lab1/Imagenes_tp1/10.jpg "Tabla de asignacion")
+
+Para configurar las direcciones IPv4 de los host se ingresó al escritorio de cada uno, y se configuró manualmente al utilizar la aplicación “IP Configuration”. A continuación, se muestra las configuraciones:
+<p align="center">
+  <img src="/Practico/Lab1/Imagenes_tp1/11.jpg" alt="Imagen 1" width="30%">
+  <img src="/Practico/Lab1/Imagenes_tp1/12.jpg" alt="Imagen 2" width="30%">
+  <img src="/Practico/Lab1/Imagenes_tp1/18.jpg" alt="Imagen 2" width="30%">
+</p>
+
+La configuracion del router se realizó de la siguiente manera:
+<img src="/Practico/Lab1/Imagenes_tp1/15.jpg" >
+<img src="/Practico/Lab1/Imagenes_tp1/16.jpg" >
+<img src="/Practico/Lab1/Imagenes_tp1/17.jpg" >
+
+Mediante el comando ping, se envían paquetes de tipo ICMP y se prueba la conectividad entre los dispositivos los cuales funcionan correctamente:
+<p align="center">
+<img src="/Practico/Lab1/Imagenes_tp1/13.jpg" >
+<img src="/Practico/Lab1/Imagenes_tp1/14.jpg" >
+</p>
 ## 3- 
 
 En el contexto de redes, los términos simulador y emulador se refieren a herramientas que permiten la creación y evaluación de topologías de red, pero difieren en su enfoque y grado de realismo.
