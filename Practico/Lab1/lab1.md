@@ -58,8 +58,88 @@ En el contexto de redes, los términos simulador y emulador se refieren a herram
 
 La principal diferencia radica en el nivel de realismo y precisión. Los simuladores son más ligeros y fáciles de usar, pero menos precisos, mientras que los emuladores ofrecen una experiencia cercana a la realidad, aunque requieren más recursos computacionales.
 ## 4-
+Ping desde h1 a h2
+
+Habilitar router
+
+![1](Imagenes_tp1/1.jpeg)
+
+
+<div style="text-align: center;">
+h1 a h3
+</div>
+
+![2](Imagenes_tp1/2.jpeg)
+
+
+<div style="text-align: center;">
+h2 a h1
+</div>
+
+![3](Imagenes_tp1/3.jpeg)
+
+
+
+<div style="text-align: center;">
+h2 a h3
+</div>
+
+![4](Imagenes_tp1/4.jpeg)
+
+
+<div style="text-align: center;">
+h3 a h1
+</div>
+
+![5](Imagenes_tp1/5.jpeg)
+
+
+<div style="text-align: center;">
+h3 a h2
+</div>
+
+![6](Imagenes_tp1/6.jpeg)
+
 ## 5-
 ## 6-
+Iniciar tráfico ICMP en el Cliente 1 con destino Cliente 2. Analizar tráfico sobre las dos redes, capturar screenshots y responder las siguientes preguntas:
+
+Iniciando el tráfico entre h1 y h2
+6_1
+
+**a-**   
+Cuando un dispositivo necesita comunicarse con otro en la misma red, pero no conoce su dirección MAC, envía una solicitud ARP (**ARP Request**) para averiguarla. El dispositivo destino responde con un **ARP Reply.**
+
+Al iniciar un ping desde **H1 (192.168.1.10)** hacia **H2 (192.168.2.10)**, se pueden observar diferentes tipos de tráfico:
+
+- H1 necesitará enviar el paquete al router porque H2 está en otra red.
+- Si H1 no conoce la MAC del router (192.168.1.11), enviará una solicitud ARP al router para obtener su dirección MAC.
+- El router responderá con un ARP Reply.
+- Una vez que H1 conoce la dirección MAC del router, enviará el paquete ICMP al router, que se encargará de reenviarlo a H2.
+
+6_2
+
+**b-**
+
+6_3
+
+Las direcciones IP son:
+	Source: 192.168.1.10 (h1)
+	Destination: 192.168.2.10 (h2)
+
+6_4
+
+	Source: 192.168.2.10 (h2)
+	Destination: 192.168.1.10 (h1)
+
+**c-**
+El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz reenviar un paquete.
+
+- **H1 (192.168.1.10) quiere comunicarse con H2 (192.168.2.10).**
+- **H1 nota que H2 está en otra red** y envía el paquete a su gateway (192.168.1.11, el router).
+- **El router revisa su tabla de enrutamiento** y ve que *192.168.2.0/24* está en *GigabitEthernet0/0/1.*
+- **El router reenvía el paquete a H2** a través de esa interfaz.
+
 ## 7-
 
 
