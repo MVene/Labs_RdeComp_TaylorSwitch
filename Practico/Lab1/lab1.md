@@ -73,6 +73,13 @@ Mediante el comando ping, se envían paquetes de tipo ICMP y se prueba la conect
 <img src="/Practico/Lab1/Imagenes_tp1/13.jpg" >
 <img src="/Practico/Lab1/Imagenes_tp1/14.jpg" >
 </p>
+
+Se evalua la conectividad entre todos los host enviando 3 (tres) paquetes ICMPv6, utilizando el comando ping para IPv6:
+<img src="/Practico/Lab1/Imagenes_tp1/19.jpg" >
+<img src="/Practico/Lab1/Imagenes_tp1/20.jpg" >
+<img src="/Practico/Lab1/Imagenes_tp1/21.jpg" >
+
+
 ## 3- 
 
 En el contexto de redes, los términos simulador y emulador se refieren a herramientas que permiten la creación y evaluación de topologías de red, pero difieren en su enfoque y grado de realismo.
