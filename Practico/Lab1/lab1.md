@@ -124,12 +124,12 @@ Iniciando el tráfico ICMP entre h1 y h2
 
 Cuando un dispositivo necesita comunicarse con otro en la misma red, pero no conoce su dirección MAC, envía una solicitud ARP (**ARP Request**) para averiguarla. El dispositivo destino responde con un **ARP Reply.**
 
-Al iniciar un ping desde **H1 (192.168.1.10)** hacia **H2 (192.168.2.10)**, se pueden observar diferentes tipos de tráfico:
+Al iniciar un ping desde **h1 (192.168.1.10)** hacia **h2 (192.168.2.10)**, se pueden observar diferentes tipos de tráfico:
 
-- H1 necesitará enviar el paquete al router porque H2 está en otra red.
-- Si H1 no conoce la MAC del router (192.168.1.11), enviará una solicitud ARP al router para obtener su dirección MAC.
+- h1 necesitará enviar el paquete al router porque h2 está en otra red.
+- Si h1 no conoce la MAC del router (192.168.1.11), enviará una solicitud ARP al router para obtener su dirección MAC.
 - El router responderá con un ARP Reply.
-- Una vez que H1 conoce la dirección MAC del router, enviará el paquete ICMP al router, que se encargará de reenviarlo a H2.
+- Una vez que h1 conoce la dirección MAC del router, enviará el paquete ICMP al router, que se encargará de reenviarlo a h2.
 
 <img src="/Practico/Lab1/Imagenes_tp1/23.png" >
 
@@ -152,10 +152,10 @@ Las direcciones IP que se observan son:
 
 El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz reenviar un paquete.
 
-- **H1 (192.168.1.10) quiere comunicarse con H2 (192.168.2.10).**
-- **H1 nota que H2 está en otra red** y envía el paquete a su gateway (192.168.1.11, el router).
+- **h1 (192.168.1.10) quiere comunicarse con h2 (192.168.2.10).**
+- **h1 nota que h2 está en otra red** y envía el paquete a su gateway (192.168.1.11, el router).
 - **El router revisa su tabla de enrutamiento** y ve que *192.168.2.0/24* está en *GigabitEthernet0/0/1.*
-- **El router reenvía el paquete a H2** a través de esa interfaz.
+- **El router reenvía el paquete a h2** a través de esa interfaz.
 
 **d-**
 
@@ -163,15 +163,41 @@ El switch sirve para interconectar dispositivos en una misma red local (LAN). No
 
 **e-**
 
+El comando arp -a muestra la tabla ARP (Address Resolution Protocol) de un dispositivo. La tabla ARP almacena las asociaciones entre las direcciones IP y las direcciones MAC en una red local.
+Se visualiza la tabla ARP para h1.
+
 <img src="/Practico/Lab1/Imagenes_tp1/26.png" >
+
+	192.168.1.11: Es la dirección IP del router en la red de H1.
+	00:00:0C:76:62:01: Es la dirección MAC del router.
+	Dynamic: Significa que esta entrada se obtuvo mediante una petición ARP automática y no fue configurada manualmente.
+h1 ha aprendido la dirección MAC del router porque lo necesita para enviar paquetes fuera de su subred.
 
 **f-**
 
+Tabla ARP para el dispositivo h3.
+
 <img src="/Practico/Lab1/Imagenes_tp1/27.png" >
+
+Como h3 no ha intentado comunicarse con otras direcciones IP, no se visualizan entradas en su tabla ARP. Las entradas ARP solo se generan cuando un dispositivo intenta comunicarse con otro en la red y necesita resolver la dirección IP en una dirección MAC.
 
 **g-**
 
 <img src="/Practico/Lab1/Imagenes_tp1/28.png" >
+
+La tabla ARP del router contiene las siguientes columnas:
+
+    Protocol: El protocolo de red que utiliza la entrada (en este caso, "Internet" para direcciones IPv4).
+
+    Address: La dirección IP asociada con la dirección MAC correspondiente.
+
+    Age (min): El tiempo en minutos desde que se aprendió la dirección MAC asociada con la dirección IP. Si está en "-" significa que la entrada es estática o recién aprendida.
+
+    Hardware Addr: La dirección MAC asociada con la dirección IP.
+
+    Type: El tipo de la entrada ARP. "ARPA" es un estándar para la resolución de direcciones IP en direcciones MAC en redes Ethernet.
+
+    Interface: La interfaz del router por la que se encuentra la dirección IP.
 
 **h-**
 
