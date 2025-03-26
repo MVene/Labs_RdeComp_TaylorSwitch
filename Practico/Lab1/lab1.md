@@ -172,9 +172,57 @@ El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz re
 - **El router revisa su tabla de enrutamiento** y ve que *192.168.2.0/24* está en *GigabitEthernet0/0/1.*
 - **El router reenvía el paquete a H2** a través de esa interfaz.
 
+
 ## 7-
 
+# Parte II - Manejo de equipamiento físico, recuperación de contraseñas de equipos de red y establecimiento de red y análisis de tráfico.
+## 1-
+**Descripción General**
 
+El Cisco Catalyst 2950 es un switch gestionado de configuración fija que proporciona conectividad de 10/100 Mbps con opciones de uplink Gigabit Ethernet. Diseñado para redes de pequeñas y medianas empresas, ofrece características básicas de switching LAN con funcionalidades avanzadas de seguridad y gestión de calidad de servicio (QoS).
 
+**Modelos Disponibles**
+
+- Cisco Catalyst 2950SX-48: 48 puertos 10/100 Mbps con 2 uplinks 1000BASE-SX.
+- Cisco Catalyst 2950T-48: 48 puertos 10/100 Mbps con 2 uplinks 10/100/1000BASE-T.
+- Cisco Catalyst 2950SX-24: 24 puertos 10/100 Mbps con 2 uplinks 1000BASE-SX.
+- Cisco Catalyst 2950-24: 24 puertos 10/100 Mbps.
+- Cisco Catalyst 2950-12: 12 puertos 10/100 Mbps.
+
+**Especificaciones Técnicas**
+
+- Capacidad de switching: Hasta 13.6 Gbps.
+- Velocidad de reenvío: Hasta 10.1 Mpps.
+- Memoria: 16 MB de DRAM y 8 MB de Flash.
+- Direcciones MAC: Hasta 8,000 entradas.
+
+**Interfaces de Red:**
+
+- 10BASE-T/100BASE-TX en RJ-45.
+- 1000BASE-SX en MT-RJ (según modelo).
+
+**Seguridad**
+
+- IEEE 802.1x: Autenticación por puerto con servidores RADIUS y TACACS+.
+- SSHv2: Seguridad en acceso remoto por CLI.
+- Private VLAN Edge: Aislamiento de puertos para mejorar la seguridad interna.
+- MAC Address Notification: Notificación de cambios en dispositivos conectados.
+- Control de acceso basado en MAC para prevenir conexiones no autorizadas.
+
+**Consumo Energético y Dimensiones**
+
+- Consumo: 30W (2950-24) a 45W (2950T-48 y 2950SX-48).
+- Dimensiones:
+
+2950SX-24, 2950-24, 2950-12: 1.72 x 17.5 x 9.52 in (4.36 x 44.45 x 24.18 cm).
+
+2950SX-48, 2950T-48: 1.72 x 17.5 x 13 in (4.36 x 44.45 x 33.02 cm).
+
+- Temperatura de operación: 0 a 45°C.
+- Peso: 3 kg (2950-24) a 4.8 kg (2950T-48).
+
+**Soporte**
+
+Disponible vía Cisco SMARTnet para actualizaciones y reemplazo avanzado.
 
 
