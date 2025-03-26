@@ -1,7 +1,7 @@
 # Parte I - Configuración y Análisis de tráfico IPv4/IPv6
 **Integrantes**  
 - Gaston Fernandez
-- Maria Lujan Guimpelevich
+- María Lujan Guimpelevich
 - David Trujillo
 - Milagros Venecia
 - Karen Yesica Robles
@@ -90,56 +90,38 @@ En el contexto de redes, los términos simulador y emulador se refieren a herram
 
 La principal diferencia radica en el nivel de realismo y precisión. Los simuladores son más ligeros y fáciles de usar, pero menos precisos, mientras que los emuladores ofrecen una experiencia cercana a la realidad, aunque requieren más recursos computacionales.
 ## 4-
-Ping desde h1 a h2
-
-Habilitar router
-
-![1](Imagenes_tp1/1.jpeg)
-
 
 <div style="text-align: center;">
-h1 a h3
+Ping desde h1 a h2
 </div>
 
 ![2](Imagenes_tp1/2.jpeg)
 
 
 <div style="text-align: center;">
-h2 a h1
+h1 a h3
 </div>
 
 ![3](Imagenes_tp1/3.jpeg)
-
 
 
 <div style="text-align: center;">
 h2 a h3
 </div>
 
-![4](Imagenes_tp1/4.jpeg)
-
-
-<div style="text-align: center;">
-h3 a h1
-</div>
-
 ![5](Imagenes_tp1/5.jpeg)
 
 
-<div style="text-align: center;">
-h3 a h2
-</div>
-
-![6](Imagenes_tp1/6.jpeg)
-
 ## 5-
 ## 6-
-Iniciar tráfico ICMP en el Cliente 1 con destino Cliente 2. Analizar tráfico sobre las dos redes, capturar screenshots y responder las siguientes preguntas:
 
-Iniciando el tráfico entre h1 y h2
-6_1
+Iniciando el tráfico ICMP entre h1 y h2
 
-**a-**   
+<img src="/Practico/Lab1/Imagenes_tp1/22.png" >
+
+
+**a-** 
+
 Cuando un dispositivo necesita comunicarse con otro en la misma red, pero no conoce su dirección MAC, envía una solicitud ARP (**ARP Request**) para averiguarla. El dispositivo destino responde con un **ARP Reply.**
 
 Al iniciar un ping desde **H1 (192.168.1.10)** hacia **H2 (192.168.2.10)**, se pueden observar diferentes tipos de tráfico:
@@ -149,22 +131,25 @@ Al iniciar un ping desde **H1 (192.168.1.10)** hacia **H2 (192.168.2.10)**, se p
 - El router responderá con un ARP Reply.
 - Una vez que H1 conoce la dirección MAC del router, enviará el paquete ICMP al router, que se encargará de reenviarlo a H2.
 
-6_2
+<img src="/Practico/Lab1/Imagenes_tp1/23.png" >
+
 
 **b-**
 
-6_3
+Las direcciones IP que se observan son:
 
-Las direcciones IP son:
+<img src="/Practico/Lab1/Imagenes_tp1/24.png" >
+
 	Source: 192.168.1.10 (h1)
 	Destination: 192.168.2.10 (h2)
 
-6_4
+<img src="/Practico/Lab1/Imagenes_tp1/25.png" >
 
 	Source: 192.168.2.10 (h2)
 	Destination: 192.168.1.10 (h1)
 
 **c-**
+
 El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz reenviar un paquete.
 
 - **H1 (192.168.1.10) quiere comunicarse con H2 (192.168.2.10).**
@@ -172,6 +157,42 @@ El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz re
 - **El router revisa su tabla de enrutamiento** y ve que *192.168.2.0/24* está en *GigabitEthernet0/0/1.*
 - **El router reenvía el paquete a H2** a través de esa interfaz.
 
+**d-**
+
+El switch sirve para interconectar dispositivos en una misma red local (LAN). No tiene IP porque trabaja en la Capa 2 (Enlace de Datos), basándose en direcciones MAC para reenviar tramas.
+
+**e-**
+
+<img src="/Practico/Lab1/Imagenes_tp1/26.png" >
+
+**f-**
+
+<img src="/Practico/Lab1/Imagenes_tp1/27.png" >
+
+**g-**
+
+<img src="/Practico/Lab1/Imagenes_tp1/28.png" >
+
+**h-**
+
+Una dirección de broadcast es una dirección especial utilizada para enviar un mensaje a todos los dispositivos dentro de una red específica. En lugar de dirigir el paquete a un solo dispositivo (unicast) o a un grupo específico (multicast), el broadcast permite que todos los hosts en la red lo reciban. 
+
+Son útiles para enviar información a todos los dispositivos dentro de una red sin necesidad de conocer sus direcciones individuales. Su uso principal es en protocolos de descubrimiento y configuración de red.
+
+Cuando un dispositivo quiere comunicarse con otro en la misma red pero no conoce su dirección MAC, envía un mensaje ARP a la dirección broadcast de la red. Algunas aplicaciones o herramientas de red usan broadcast para notificaciones.
+
+**i-**
+
+Las direcciones multicast en IPv4 permiten enviar datos a un grupo específico de dispositivos en la red.
+En lugar de enviar una copia por cada destinatario (unicast), el emisor envía una sola transmisión, y los dispositivos interesados la reciben. Esto es algo ideal para no colapsar las redes, ni tener que enviar copias de todos los paquetes a todos los clientes.
+
+Algunos protocolos muy populares que se usan con tráfico Multicast:
+
+RTP (Real-time Transport Protocol): es un protocolo a nivel de aplicación que se encarga de transmitir información en tiempo real. También se suele usar junto con el protocolo RTSP (Real-time Streaming Protocol) y también se usa el RTCP (RTP Control Protocol).
+
+Internet Group Management Protocol (IGMP): IGMP gestiona los miembros de los grupos de multidifusión IPv4 y se ejecuta en el extremo de una red de multidifusión. Los hosts utilizan el protocolo IGMP para unirse o abandonar grupos multicast.
+
+Protocol Independent Multicast (PIM): PIM se ejecuta en una red IPv4 y envía datos multicast a dispositivos multicast conectados a miembros del grupo interesados en los datos.
 
 ## 7-
 
