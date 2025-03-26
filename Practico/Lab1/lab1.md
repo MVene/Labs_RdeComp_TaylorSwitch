@@ -50,7 +50,7 @@ La correcta configuración y monitoreo de las rutas es fundamental para evitar c
 
 ## 2-
 **Diagrama de red propuesto:**
-<p align="center"><img src="/Practico/Lab1/Imagenes_tp1/9.jpg " alt="Diagrama"></p>
+<p align="center"><img src="/Practico/Lab1/Imagenes_tp1/9.jpg" alt="Diagrama"></p>
 
 **Tabla de asignación de direcciones propuestas:**
 
@@ -95,21 +95,21 @@ La principal diferencia radica en el nivel de realismo y precisión. Los simulad
 Ping desde h1 a h2
 </div>
 
-![2](Imagenes_tp1/2.jpeg)
+<img src="/Practico/Lab1/Imagenes_tp1/2.png" >
 
 
 <div style="text-align: center;">
 h1 a h3
 </div>
 
-![3](Imagenes_tp1/3.jpeg)
+<img src="/Practico/Lab1/Imagenes_tp1/3.png" >
 
 
 <div style="text-align: center;">
 h2 a h3
 </div>
 
-![5](Imagenes_tp1/5.jpeg)
+<img src="/Practico/Lab1/Imagenes_tp1/5.png" >
 
 
 ## 5-
