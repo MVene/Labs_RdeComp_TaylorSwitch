@@ -336,20 +336,47 @@ El Cisco Catalyst 2950 es un switch gestionado de configuración fija que propor
 
 Disponible vía Cisco SMARTnet para actualizaciones y reemplazo avanzado.
 
-## 2-
+## 2- Procedimientos
 
-<img src="/Practico/Lab1/Imagenes_tp1/29.png" >
+**a-** 
+Conectar el cable serie a RJ-45 al puerto de consola del switch y la otra extremidad a la computadora a través del adaptador serie a USB.
+Luego para configurar PUTTY en Linux ejecutamos el siguiente comando:
 
-<img src="/Practico/Lab1/Imagenes_tp1/30.png" >
+		lujan@ivy:~$ sudo putty /dev/ttyUSB0 -serial -sercfg 9600,8,n,1,N
+  
+**b-** 
+Si todo esta correctamente conectado deberiamos ver la consola del Switch Cisco como se muestra a continuación.
+Accedemos a las opciones de administración del switch y modificamos claves de acceso.
 
-<img src="/Practico/Lab1/Imagenes_tp1/31.png" >
+<img src="/Practico/Lab1/Imagenes_tp1/30.jpeg" >
 
-<img src="/Practico/Lab1/Imagenes_tp1/32.png" >
+**c-**
+A continuación conectamos dos computadoras al switch para configurar una red y testear conectividad:
 
-<img src="/Practico/Lab1/Imagenes_tp1/33.png" >
+PC1 con IP: 192.168.2.10
+PC2 con IP: 192.168.2.11
 
-<img src="/Practico/Lab1/Imagenes_tp1/34.png" >
+PC2 enviando paquetes ICMP a PC1 con el comando ping
 
-<img src="/Practico/Lab1/Imagenes_tp1/35.png" >
+<img src="/Practico/Lab1/Imagenes_tp1/29.jpeg" >
 
-<img src="/Practico/Lab1/Imagenes_tp1/36.png" >
+PC1 enviando paquetes ICMP a PC2 con el comando ping
+
+<img src="/Practico/Lab1/Imagenes_tp1/33.jpeg" >
+
+Se observan las tablas ARP de cada PC para confirmar que la comunicación se realizó correctamente y se muestra la asociación entre direcciones IP y direcciones MAC de los dispositivos en la misma red local.
+
+<img src="/Practico/Lab1/Imagenes_tp1/31.jpeg" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/34.jpeg" >
+
+En la siguiente imagen se visualiza la tabla de direcciones MAC del switch, es decir, qué direcciones MAC están aprendidas en qué puertos.
+
+<img src="/Practico/Lab1/Imagenes_tp1/32.jpeg" >
+
+**d-**
+Para configurar un puerto del switch en modo mirroring se siguen los siguientes pasos:
+
+<img src="/Practico/Lab1/Imagenes_tp1/35.jpeg" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/36.jpeg" >
