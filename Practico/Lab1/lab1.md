@@ -113,6 +113,13 @@ h2 a h3
 
 
 ## 5-
+Se configuró la red con IPv6 y se probó la conexión entre las PC<br>
+h1 -> h2
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh2.jpg "h1 -> h2")
+h1 -> h3
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh3.jpg "h1 -> h3")
+h2 -> h3
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h2toh3.jpg "h2 -> h3")
 ## 6-
 
 Iniciando el tráfico ICMP entre h1 y h2
@@ -221,6 +228,63 @@ Internet Group Management Protocol (IGMP): IGMP gestiona los miembros de los gru
 Protocol Independent Multicast (PIM): PIM se ejecuta en una red IPv4 y envía datos multicast a dispositivos multicast conectados a miembros del grupo interesados en los datos.
 
 ## 7-
+a)
+
+Durante la comunicación entre **H1 y H3**, se observaron dos tipos de mensajes principales:  
+
+- Neighbor Discovery Protocol (NDP): Se usa en IPv6 para la resolución de direcciones, reemplazando a ARP en IPv4. Permite que los dispositivos descubran la dirección MAC de otros en la red antes de enviar paquetes.  
+- ICMPv6: Es el protocolo utilizado para diagnóstico y control en IPv6. En este caso, se observó el envío de paquetes de solicitud y respuesta de ping entre H1 y H3 para verificar la conectividad.  
+
+Antes de que los paquetes ICMPv6 sean enviados, ocurre un proceso NDP donde H1 resuelve la dirección MAC de H3. Una vez completado, los paquetes ICMPv6 pueden viajar entre ambos dispositivos.  
+
+---
+
+b)
+
+Sí, NDP reemplaza a ARP en IPv6. Mientras que en IPv4 se usa ARP para obtener la dirección MAC de un dispositivo, en IPv6 se utiliza Neighbor Solicitation (NS) y Neighbor Advertisement (NA) dentro del protocolo NDP.  
+
+Además, NDP incluye funcionalidades adicionales que ARP no tenía, como:  
+- Descubrimiento de routers (Router Solicitation y Advertisement).  
+- Detección de direcciones duplicadas (DAD - Duplicate Address Detection).  
+- Redirección de tráfico optimizada (Redirect Messages).  
+
+---
+
+c) 
+
+El Neighbor Discovery Protocol (NDP) tiene cinco funciones principales:
+
+1. Resolución de direcciones: Traduce direcciones IPv6 en direcciones MAC usando Neighbor Solicitation (NS) y Neighbor Advertisement (NA).  
+2. Detección de routers: Permite que los dispositivos encuentren routers en la red mediante mensajes de Router Solicitation (RS) y Router Advertisement (RA).  
+3. Autoconfiguración de direcciones: Permite a los hosts configurarse automáticamente usando la información proporcionada por los routers.  
+4. Detección de direcciones duplicadas (DAD): Antes de asignarse una IP, un dispositivo verifica que no esté en uso.  
+5. Redirección de tráfico: Un router puede indicar a un host una mejor ruta hacia un destino.  
+
+---
+
+d)
+
+En IPv6, el broadcast no existe, ya que genera tráfico innecesario. En su lugar, se usan multicast y anycast:
+
+- Multicast: Un paquete se envía solo a un grupo específico de dispositivos en la red.  
+- Anycast: Un paquete se envía a la dirección más cercana dentro de un grupo de dispositivos con la misma IP anycast.  
+
+Así, en IPv6 los dispositivos reciben solo los mensajes que realmente necesitan, mejorando la eficiencia.
+
+---
+
+## e) ¿Cuál es la diferencia entre las direcciones link-local, unique-local y global? ¿En qué caso usaría cada una? Ejemplificar.
+
+| **Tipo de Dirección IPv6** | **Prefijo** | **Alcance** | **Ejemplo** | **Uso** |
+|---------------------------|------------|------------|------------|--------|
+| **Link-Local** | `FE80::/10` | Solo en la red local (no se enrutan) | `FE80::1` | Comunicación entre dispositivos en la misma red sin necesidad de configuración. |
+| **Unique-Local** | `FC00::/7` | Similar a IPv4 privado (`192.168.x.x`) | `FD12:3456:789A::1` | Redes internas sin conexión a Internet. |
+| **Global** | `2000::/3` | Pública, accesible en Internet | `2001:db8::1` | Direcciones asignadas por un ISP para acceso a Internet. |
+
+ Ejemplo de uso:
+- Link-Local (`FE80::1`): Un router se comunica con una PC en la misma red.  
+- Unique-Local (`FD00::1`): Una empresa usa direcciones privadas para su red interna.  
+- Global (`2001:db8::1`): Un servidor web con acceso desde Internet.
 
 # Parte II - Manejo de equipamiento físico, recuperación de contraseñas de equipos de red y establecimiento de red y análisis de tráfico.
 ## 1-
