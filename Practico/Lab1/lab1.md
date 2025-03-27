@@ -115,11 +115,11 @@ h2 a h3
 ## 5-
 Se configuró la red con IPv6 y se probó la conexión entre las PC<br>
 h1 -> h2
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh2.jpg "h1 -> h2")
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh2.JPG "h1 -> h2")
 h1 -> h3
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh3.jpg "h1 -> h3")
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh3.JPG "h1 -> h3")
 h2 -> h3
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h2toh3.jpg "h2 -> h3")
+![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h2toh3.JPG "h2 -> h3")
 ## 6-
 
 Iniciando el tráfico ICMP entre h1 y h2
