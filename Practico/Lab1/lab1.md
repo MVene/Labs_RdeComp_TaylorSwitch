@@ -377,6 +377,9 @@ En la siguiente imagen se visualiza la tabla de direcciones MAC del switch, es d
 **d-**
 Para configurar un puerto del switch en modo mirroring se siguen los siguientes pasos:
 
+
+<img src="/Practico/Lab1/Imagenes_tp1/37.png" >
+
 <img src="/Practico/Lab1/Imagenes_tp1/35.jpeg" >
 
 <img src="/Practico/Lab1/Imagenes_tp1/36.jpeg" >
