@@ -336,4 +336,20 @@ El Cisco Catalyst 2950 es un switch gestionado de configuración fija que propor
 
 Disponible vía Cisco SMARTnet para actualizaciones y reemplazo avanzado.
 
+## 2-
 
+<img src="/Practico/Lab1/Imagenes_tp1/29.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/30.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/31.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/32.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/33.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/34.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/35.png" >
+
+<img src="/Practico/Lab1/Imagenes_tp1/36.png" >
