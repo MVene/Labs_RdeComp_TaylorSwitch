@@ -1,10 +1,10 @@
 # Parte I - Configuración y Análisis de tráfico IPv4/IPv6
 **Integrantes**  
-- Gaston Fernandez
-- María Lujan Guimpelevich
+- Gastón E. Fernandez
+- María L. Guimpelevich
+- Karen Y. Robles
 - David Trujillo
-- Milagros Venecia
-- Karen Yesica Robles
+- Milagros A. Venecia
 
 **Nombre del grupo**
  "Taylor Switch"
@@ -13,10 +13,20 @@
 
 **Cátedra de Redes de computadoras**
 
- **17 de Marzo 2025**  
+**Profesores**
+- Santiago M. Henn
+- Facundo N. Oliva Cuneo
 
+ **17 de Marzo 2025**  
+ 
+**Información de contacto**
+- gaston.fernandez@mi.unc.edu.ar
+- lujan.guimpelevich@mi.unc.edu.ar
+- yesica.robles@mi.unc.edu.ar
+- d.trujillo@unc.edu.ar
+- milagros.venecia@unc.edu.ar
 ---
-# Consignas
+# Desarrollo
 
 ## 1- Marco Teórico
 
@@ -79,7 +89,6 @@ Se evalua la conectividad entre todos los host enviando 3 (tres) paquetes ICMPv6
 <img src="/Practico/Lab1/Imagenes_tp1/20.jpg" >
 <img src="/Practico/Lab1/Imagenes_tp1/21.jpg" >
 
-
 ## 3- 
 
 En el contexto de redes, los términos simulador y emulador se refieren a herramientas que permiten la creación y evaluación de topologías de red, pero difieren en su enfoque y grado de realismo.
@@ -89,6 +98,7 @@ En el contexto de redes, los términos simulador y emulador se refieren a herram
 - *Emuladores:* Ejecutan el software real de los dispositivos de red, proporcionando un entorno muy similar al de una red física. Esto permite probar configuraciones reales y diagnosticar problemas de forma más precisa. Ejemplos de emuladores son GNS3 y CORE.
 
 La principal diferencia radica en el nivel de realismo y precisión. Los simuladores son más ligeros y fáciles de usar, pero menos precisos, mientras que los emuladores ofrecen una experiencia cercana a la realidad, aunque requieren más recursos computacionales.
+
 ## 4-
 
 <div style="text-align: center;">
@@ -114,12 +124,19 @@ h2 a h3
 
 ## 5-
 Se configuró la red con IPv6 y se probó la conexión entre las PC<br>
+
 h1 -> h2
+
 ![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh2.JPG "h1 -> h2")
+
 h1 -> h3
+
 ![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh3.JPG "h1 -> h3")
+
 h2 -> h3
+
 ![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h2toh3.JPG "h2 -> h3")
+
 ## 6-
 
 Iniciando el tráfico ICMP entre h1 y h2
@@ -140,6 +157,7 @@ Al iniciar un ping desde **h1 (192.168.1.10)** hacia **h2 (192.168.2.10)**, se p
 
 <img src="/Practico/Lab1/Imagenes_tp1/23.png" >
 
+---
 
 **b-**
 
@@ -154,6 +172,7 @@ Las direcciones IP que se observan son:
 
 	Source: 192.168.2.10 (h2)
 	Destination: 192.168.1.10 (h1)
+ ---
 
 **c-**
 
@@ -164,10 +183,12 @@ El **router** usa su **tabla de enrutamiento** para decidir por qué interfaz re
 - **El router revisa su tabla de enrutamiento** y ve que *192.168.2.0/24* está en *GigabitEthernet0/0/1.*
 - **El router reenvía el paquete a h2** a través de esa interfaz.
 
+---
 **d-**
 
 El switch sirve para interconectar dispositivos en una misma red local (LAN). No tiene IP porque trabaja en la Capa 2 (Enlace de Datos), basándose en direcciones MAC para reenviar tramas.
 
+---
 **e-**
 
 El comando arp -a muestra la tabla ARP (Address Resolution Protocol) de un dispositivo. La tabla ARP almacena las asociaciones entre las direcciones IP y las direcciones MAC en una red local.
@@ -180,6 +201,7 @@ Se visualiza la tabla ARP para h1.
 	Dynamic: Significa que esta entrada se obtuvo mediante una petición ARP automática y no fue configurada manualmente.
 h1 ha aprendido la dirección MAC del router porque lo necesita para enviar paquetes fuera de su subred.
 
+---
 **f-**
 
 Tabla ARP para el dispositivo h3.
@@ -188,6 +210,7 @@ Tabla ARP para el dispositivo h3.
 
 Como h3 no ha intentado comunicarse con otras direcciones IP, no se visualizan entradas en su tabla ARP. Las entradas ARP solo se generan cuando un dispositivo intenta comunicarse con otro en la red y necesita resolver la dirección IP en una dirección MAC.
 
+---
 **g-**
 
 <img src="/Practico/Lab1/Imagenes_tp1/28.png" >
@@ -206,6 +229,7 @@ La tabla ARP del router contiene las siguientes columnas:
 
     Interface: La interfaz del router por la que se encuentra la dirección IP.
 
+---
 **h-**
 
 Una dirección de broadcast es una dirección especial utilizada para enviar un mensaje a todos los dispositivos dentro de una red específica. En lugar de dirigir el paquete a un solo dispositivo (unicast) o a un grupo específico (multicast), el broadcast permite que todos los hosts en la red lo reciban. 
@@ -214,6 +238,7 @@ Son útiles para enviar información a todos los dispositivos dentro de una red 
 
 Cuando un dispositivo quiere comunicarse con otro en la misma red pero no conoce su dirección MAC, envía un mensaje ARP a la dirección broadcast de la red. Algunas aplicaciones o herramientas de red usan broadcast para notificaciones.
 
+---
 **i-**
 
 Las direcciones multicast en IPv4 permiten enviar datos a un grupo específico de dispositivos en la red.
@@ -228,7 +253,7 @@ Internet Group Management Protocol (IGMP): IGMP gestiona los miembros de los gru
 Protocol Independent Multicast (PIM): PIM se ejecuta en una red IPv4 y envía datos multicast a dispositivos multicast conectados a miembros del grupo interesados en los datos.
 
 ## 7-
-a)
+**a-**
 
 Durante la comunicación entre **H1 y H3**, se observaron dos tipos de mensajes principales:  
 
@@ -239,7 +264,7 @@ Antes de que los paquetes ICMPv6 sean enviados, ocurre un proceso NDP donde H1 r
 
 ---
 
-b)
+**b-**
 
 Sí, NDP reemplaza a ARP en IPv6. Mientras que en IPv4 se usa ARP para obtener la dirección MAC de un dispositivo, en IPv6 se utiliza Neighbor Solicitation (NS) y Neighbor Advertisement (NA) dentro del protocolo NDP.  
 
@@ -250,7 +275,7 @@ Además, NDP incluye funcionalidades adicionales que ARP no tenía, como:
 
 ---
 
-c) 
+**c-**
 
 El Neighbor Discovery Protocol (NDP) tiene cinco funciones principales:
 
@@ -262,7 +287,7 @@ El Neighbor Discovery Protocol (NDP) tiene cinco funciones principales:
 
 ---
 
-d)
+**d-**
 
 En IPv6, el broadcast no existe, ya que genera tráfico innecesario. En su lugar, se usan multicast y anycast:
 
@@ -273,7 +298,7 @@ Así, en IPv6 los dispositivos reciben solo los mensajes que realmente necesitan
 
 ---
 
-## e) ¿Cuál es la diferencia entre las direcciones link-local, unique-local y global? ¿En qué caso usaría cada una? Ejemplificar.
+**e-** ¿Cuál es la diferencia entre las direcciones link-local, unique-local y global? ¿En qué caso usaría cada una? Ejemplificar.
 
 | **Tipo de Dirección IPv6** | **Prefijo** | **Alcance** | **Ejemplo** | **Uso** |
 |---------------------------|------------|------------|------------|--------|
@@ -342,7 +367,7 @@ Disponible vía Cisco SMARTnet para actualizaciones y reemplazo avanzado.
 Conectar el cable serie a RJ-45 al puerto de consola del switch y la otra extremidad a la computadora a través del adaptador serie a USB.
 Luego para configurar PUTTY en Linux ejecutamos el siguiente comando:
 
-		lujan@ivy:~$ sudo putty /dev/ttyUSB0 -serial -sercfg 9600,8,n,1,N
+			sudo putty /dev/ttyUSB0 -serial -sercfg 9600,8,n,1,N
   
 **b-** 
 Si todo esta correctamente conectado deberiamos ver la consola del Switch Cisco como se muestra a continuación.
@@ -354,6 +379,7 @@ Accedemos a las opciones de administración del switch y modificamos claves de a
 A continuación conectamos dos computadoras al switch para configurar una red y testear conectividad:
 
 PC1 con IP: 192.168.2.10
+
 PC2 con IP: 192.168.2.11
 
 PC2 enviando paquetes ICMP a PC1 con el comando ping
@@ -375,11 +401,40 @@ En la siguiente imagen se visualiza la tabla de direcciones MAC del switch, es d
 <img src="/Practico/Lab1/Imagenes_tp1/32.jpeg" >
 
 **d-**
-Para configurar un puerto del switch en modo mirroring se siguen los siguientes pasos:
+El Port Mirroring es una técnica que permite copiar todo el tráfico de uno o más puertos de origen a un puerto de destino. Esto puede resultar muy útil para analizar los flujos de red que transitan por ciertos puertos.
 
+Para configurar un puerto del switch en modo mirroring se siguen los siguientes pasos: 
+
+**1.** Se cambia a modo privilegiado y luego al modo terminal de configuración:
+
+	````
+	Switch>enable
+	password:
+	Switch#configure terminal
+	````
+ 
+**2.** Luego elegimos el puerto de origen fastEthernet 0/1 y copiamos tanto los paquetes recibidos como los transmitidos (both -ambos).
+
+	````
+	Switch(config)#monitor session 1 source interface fa 0/1 both
+	````
+ 
+**3.** Para finalizar la configuración, indicamos a qué puerto de destino queremos duplicar el tráfico proveniente del puerto de origen.
+
+	````
+	Switch(config)#monitor session 1 destination interface fa0/2
+	````
+ 
+Verificamos que la configuración este realizada correctamente:
 
 <img src="/Practico/Lab1/Imagenes_tp1/37.png" >
+
+Luego utilizamos el software Wireshark para observar el tráfico entre PC1 Y PC2.
 
 <img src="/Practico/Lab1/Imagenes_tp1/35.jpeg" >
 
 <img src="/Practico/Lab1/Imagenes_tp1/36.jpeg" >
+
+- **Paquetes ARP**: Se observa el intercambio de mensajes ARP entre 192.168.2.10 (PC1) y 192.168.2.11 (PC2), donde un dispositivo solicita la dirección MAC del otro para establecer comunicación.
+
+- **Paquetes ICMP**: Se capturan solicitudes y respuestas de ping (Echo Request y Echo Reply) entre 192.168.2.10 y 192.168.2.11, confirmando la conectividad entre ambos dispositivos.
