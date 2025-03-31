@@ -407,23 +407,22 @@ Para configurar un puerto del switch en modo mirroring se siguen los siguientes 
 
 **1.** Se cambia a modo privilegiado y luego al modo terminal de configuración:
 
-	````
 	Switch>enable
 	password:
 	Switch#configure terminal
-	````
+	
  
 **2.** Luego elegimos el puerto de origen fastEthernet 0/1 y copiamos tanto los paquetes recibidos como los transmitidos (both -ambos).
 
-	````
+	
 	Switch(config)#monitor session 1 source interface fa 0/1 both
-	````
+	
  
 **3.** Para finalizar la configuración, indicamos a qué puerto de destino queremos duplicar el tráfico proveniente del puerto de origen.
 
-	````
+	
 	Switch(config)#monitor session 1 destination interface fa0/2
-	````
+	
  
 Verificamos que la configuración este realizada correctamente:
 
