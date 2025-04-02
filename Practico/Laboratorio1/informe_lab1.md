@@ -60,34 +60,34 @@ La correcta configuración y monitoreo de las rutas es fundamental para evitar c
 
 ## 2-
 **Diagrama de red propuesto:**
-<p align="center"><img src="/Practico/Lab1/Imagenes_tp1/9.jpg" alt="Diagrama"></p>
+<p align="center"><img src="/Practico/Laboratorio1/Imagenes_tp1/9.jpg" alt="Diagrama"></p>
 
 **Tabla de asignación de direcciones propuestas:**
 
-![Tabla de asignacion IP](/Practico/Lab1/Imagenes_tp1/10.jpg "Tabla de asignacion")
+![Tabla de asignacion IP](/Practico/Laboratorio1/Imagenes_tp1/10.jpg "Tabla de asignacion")
 
 Para configurar las direcciones IPv4 de los host se ingresó al escritorio de cada uno, y se configuró manualmente al utilizar la aplicación “IP Configuration”. A continuación, se muestra las configuraciones:
 <p align="center">
-  <img src="/Practico/Lab1/Imagenes_tp1/11.jpg" alt="Imagen 1" width="30%">
-  <img src="/Practico/Lab1/Imagenes_tp1/12.jpg" alt="Imagen 2" width="30%">
-  <img src="/Practico/Lab1/Imagenes_tp1/18.jpg" alt="Imagen 2" width="30%">
+  <img src="/Practico/Laboratorio1/Imagenes_tp1/11.jpg" alt="Imagen 1" width="30%">
+  <img src="/Practico/Laboratorio1/Imagenes_tp1/12.jpg" alt="Imagen 2" width="30%">
+  <img src="/Practico/Laboratorio1/Imagenes_tp1/18.jpg" alt="Imagen 2" width="30%">
 </p>
 
 La configuracion del router se realizó de la siguiente manera:
-<img src="/Practico/Lab1/Imagenes_tp1/15.jpg" >
-<img src="/Practico/Lab1/Imagenes_tp1/16.jpg" >
-<img src="/Practico/Lab1/Imagenes_tp1/17.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/15.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/16.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/17.jpg" >
 
 Mediante el comando ping, se envían paquetes de tipo ICMP y se prueba la conectividad entre los dispositivos los cuales funcionan correctamente:
 <p align="center">
-<img src="/Practico/Lab1/Imagenes_tp1/13.jpg" >
-<img src="/Practico/Lab1/Imagenes_tp1/14.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/13.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/14.jpg" >
 </p>
 
 Se evalua la conectividad entre todos los host enviando 3 (tres) paquetes ICMPv6, utilizando el comando ping para IPv6:
-<img src="/Practico/Lab1/Imagenes_tp1/19.jpg" >
-<img src="/Practico/Lab1/Imagenes_tp1/20.jpg" >
-<img src="/Practico/Lab1/Imagenes_tp1/21.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/19.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/20.jpg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/21.jpg" >
 
 ## 3- 
 
@@ -105,21 +105,21 @@ La principal diferencia radica en el nivel de realismo y precisión. Los simulad
 Ping desde h1 a h2
 </div>
 
-<img src="/Practico/Lab1/Imagenes_tp1/2.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/2.png" >
 
 
 <div style="text-align: center;">
 h1 a h3
 </div>
 
-<img src="/Practico/Lab1/Imagenes_tp1/3.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/3.png" >
 
 
 <div style="text-align: center;">
 h2 a h3
 </div>
 
-<img src="/Practico/Lab1/Imagenes_tp1/5.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/5.png" >
 
 
 ## 5-
@@ -127,21 +127,21 @@ Se configuró la red con IPv6 y se probó la conexión entre las PC<br>
 
 h1 -> h2
 
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh2.JPG "h1 -> h2")
+![ ](/Practico/Laboratorio1/Imagenes_tp1/5%20-%20h1toh2.JPG "h1 -> h2")
 
 h1 -> h3
 
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h1toh3.JPG "h1 -> h3")
+![ ](/Practico/Laboratorio1/Imagenes_tp1/5%20-%20h1toh3.JPG "h1 -> h3")
 
 h2 -> h3
 
-![ ](/Practico/Lab1/Imagenes_tp1/5%20-%20h2toh3.JPG "h2 -> h3")
+![ ](/Practico/Laboratorio1/Imagenes_tp1/5%20-%20h2toh3.JPG "h2 -> h3")
 
 ## 6-
 
 Iniciando el tráfico ICMP entre h1 y h2
 
-<img src="/Practico/Lab1/Imagenes_tp1/22.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/22.png" >
 
 
 **a-** 
@@ -155,7 +155,7 @@ Al iniciar un ping desde **h1 (192.168.1.10)** hacia **h2 (192.168.2.10)**, se p
 - El router responderá con un ARP Reply.
 - Una vez que h1 conoce la dirección MAC del router, enviará el paquete ICMP al router, que se encargará de reenviarlo a h2.
 
-<img src="/Practico/Lab1/Imagenes_tp1/23.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/23.png" >
 
 ---
 
@@ -163,12 +163,12 @@ Al iniciar un ping desde **h1 (192.168.1.10)** hacia **h2 (192.168.2.10)**, se p
 
 Las direcciones IP que se observan son:
 
-<img src="/Practico/Lab1/Imagenes_tp1/24.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/24.png" >
 
 	Source: 192.168.1.10 (h1)
 	Destination: 192.168.2.10 (h2)
 
-<img src="/Practico/Lab1/Imagenes_tp1/25.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/25.png" >
 
 	Source: 192.168.2.10 (h2)
 	Destination: 192.168.1.10 (h1)
@@ -194,7 +194,7 @@ El switch sirve para interconectar dispositivos en una misma red local (LAN). No
 El comando arp -a muestra la tabla ARP (Address Resolution Protocol) de un dispositivo. La tabla ARP almacena las asociaciones entre las direcciones IP y las direcciones MAC en una red local.
 Se visualiza la tabla ARP para h1.
 
-<img src="/Practico/Lab1/Imagenes_tp1/26.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/26.png" >
 
 	192.168.1.11: Es la dirección IP del router en la red de H1.
 	00:00:0C:76:62:01: Es la dirección MAC del router.
@@ -206,14 +206,14 @@ h1 ha aprendido la dirección MAC del router porque lo necesita para enviar paqu
 
 Tabla ARP para el dispositivo h3.
 
-<img src="/Practico/Lab1/Imagenes_tp1/27.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/27.png" >
 
 Como h3 no ha intentado comunicarse con otras direcciones IP, no se visualizan entradas en su tabla ARP. Las entradas ARP solo se generan cuando un dispositivo intenta comunicarse con otro en la red y necesita resolver la dirección IP en una dirección MAC.
 
 ---
 **g-**
 
-<img src="/Practico/Lab1/Imagenes_tp1/28.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/28.png" >
 
 La tabla ARP del router contiene las siguientes columnas:
 
@@ -373,7 +373,7 @@ Luego para configurar PUTTY en Linux ejecutamos el siguiente comando:
 Si todo esta correctamente conectado deberiamos ver la consola del Switch Cisco como se muestra a continuación.
 Accedemos a las opciones de administración del switch y modificamos claves de acceso.
 
-<img src="/Practico/Lab1/Imagenes_tp1/30.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/30.jpeg" >
 
 **c-**
 A continuación conectamos dos computadoras al switch para configurar una red y testear conectividad:
@@ -384,21 +384,21 @@ PC2 con IP: 192.168.2.11
 
 PC2 enviando paquetes ICMP a PC1 con el comando ping
 
-<img src="/Practico/Lab1/Imagenes_tp1/29.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/29.jpeg" >
 
 PC1 enviando paquetes ICMP a PC2 con el comando ping
 
-<img src="/Practico/Lab1/Imagenes_tp1/33.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/33.jpeg" >
 
 Se observan las tablas ARP de cada PC para confirmar que la comunicación se realizó correctamente y se muestra la asociación entre direcciones IP y direcciones MAC de los dispositivos en la misma red local.
 
-<img src="/Practico/Lab1/Imagenes_tp1/31.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/31.jpeg" >
 
-<img src="/Practico/Lab1/Imagenes_tp1/34.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/34.jpeg" >
 
 En la siguiente imagen se visualiza la tabla de direcciones MAC del switch, es decir, qué direcciones MAC están aprendidas en qué puertos.
 
-<img src="/Practico/Lab1/Imagenes_tp1/32.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/32.jpeg" >
 
 **d-**
 El Port Mirroring es una técnica que permite copiar todo el tráfico de uno o más puertos de origen a un puerto de destino. Esto puede resultar muy útil para analizar los flujos de red que transitan por ciertos puertos.
@@ -426,13 +426,13 @@ Para configurar un puerto del switch en modo mirroring se siguen los siguientes 
  
 Verificamos que la configuración este realizada correctamente:
 
-<img src="/Practico/Lab1/Imagenes_tp1/37.png" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/37.png" >
 
 Luego utilizamos el software Wireshark para observar el tráfico entre PC1 Y PC2.
 
-<img src="/Practico/Lab1/Imagenes_tp1/35.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/35.jpeg" >
 
-<img src="/Practico/Lab1/Imagenes_tp1/36.jpeg" >
+<img src="/Practico/Laboratorio1/Imagenes_tp1/36.jpeg" >
 
 - **Paquetes ARP**: Se observa el intercambio de mensajes ARP entre 192.168.2.10 (PC1) y 192.168.2.11 (PC2), donde un dispositivo solicita la dirección MAC del otro para establecer comunicación.
 
