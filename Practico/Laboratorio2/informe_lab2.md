@@ -153,15 +153,15 @@ Para verificar el funcionamiento correcto de las rutas estáticas configuradas e
 **Principales comandos para pruebas con iPerf3**
 - **Configuración del servidor y cliente:**
   - Iniciar el servidor:
-  <img src="/Practico/Laboratorio2/Imagenes_tp2/15.png" ><br>
+  <img src="/Practico/Laboratorio2/Imagenes_tp2/14.jpeg" ><br>
 Esto indica que iperf3 está esperando conexiones en el puerto 5201 (puerto por defecto de iperf3). Un cliente que se conecte a esa IP y puerto puede empezar a hacer pruebas de red.
 
   - Iniciar el cliente:
-<img src="/Practico/Laboratorio2/Imagenes_tp2/13.png" ><br>
+<img src="/Practico/Laboratorio2/Imagenes_tp2/7.png" ><br>
 
 - **a) Protocolos TCP y UDP**
   - TCP (por defecto):
-  <img src="/Practico/Laboratorio2/Imagenes_tp2/13.png" ><br>
+  <img src="/Practico/Laboratorio2/Imagenes_tp2/7.png" ><br>
   
   - UDP (agregar -u):
    <img src="/Practico/Laboratorio2/Imagenes_tp2/8.png" ><br>
