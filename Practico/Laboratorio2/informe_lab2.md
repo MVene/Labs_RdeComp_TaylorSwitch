@@ -149,7 +149,7 @@ Para verificar el funcionamiento correcto de las rutas estáticas configuradas e
    </div>
 </div>
 
-## 2-
+## 2 y 3-
 **Principales comandos para pruebas con iPerf3**
 - **Configuración del servidor y cliente:**
   - Iniciar el servidor:
