@@ -180,6 +180,18 @@ Esto indica que iperf3 está esperando conexiones en el puerto 5201 (puerto por 
 - **d) Ancho de banda**
    - Definir ancho de banda UDP
     <img src="/Practico/Laboratorio2/Imagenes_tp2/12.png" ><br>
+
+## 4- 
+En primer lugar, **el ancho de banda alcanzado con TCP fue significativamente mayor**, llegando a ~94 Mbps, mientras que **UDP se mantuvo en 1.05 Mbps**. Esto demuestra cómo TCP puede aprovechar mejor la capacidad de la red al adaptarse dinámicamente.
+
+Ambas pruebas tuvieron una duración de **10 segundos**, valor por defecto de iperf3, y **no se detectaron pérdidas de paquetes** ni en TCP ni en UDP. En UDP, incluso con el tráfico constante, el jitter fue prácticamente nulo (0.084 ms), lo que indica una red estable.
+
+Respecto al **tamaño promedio de los paquetes**, se estimó que en UDP fue de aproximadamente 1,447 bytes, lo que es típico para datagramas que evitan la fragmentación. En TCP, no se puede calcular directamente, ya que el protocolo fragmenta y gestiona los datos dinámicamente.
+
+Finalmente, se confirma que existe una relación entre los parámetros de la prueba y el comportamiento de la red, especialmente en UDP. Si el ancho de banda solicitado excediera la capacidad de la red, comenzarían a observarse pérdidas de paquetes. TCP, por su parte, maneja esto mediante mecanismos de control de congestión.
+
+En resumen, TCP ofrece mayor rendimiento y confiabilidad, adaptándose a las condiciones de la red, mientras que UDP, aunque más simple y liviano, requiere una configuración adecuada para evitar pérdidas, especialmente cuando se aumenta el tráfico.
+
   
 
 
