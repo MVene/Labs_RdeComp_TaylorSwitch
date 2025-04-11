@@ -161,24 +161,30 @@ Esto indica que iperf3 está esperando conexiones en el puerto 5201 (puerto por 
 
 - **a) Protocolos TCP y UDP**
   - TCP (por defecto):
-  <img src="/Practico/Laboratorio2/Imagenes_tp2/7.png" ><br>
+
+      <img src="/Practico/Laboratorio2/Imagenes_tp2/7.png" ><br>
   
   - UDP (agregar -u):
-   <img src="/Practico/Laboratorio2/Imagenes_tp2/8.png" ><br>
+ 
+     <img src="/Practico/Laboratorio2/Imagenes_tp2/8.png" ><br>
 
 - **b) Número y tamaño de paquetes**
    - Definir tamaño de paquete TCP (por defecto es 128 KB):
+     
       <img src="/Practico/Laboratorio2/Imagenes_tp2/9.png" ><br>
       
    - Definir tamaño de paquete UDP:
+     
       <img src="/Practico/Laboratorio2/Imagenes_tp2/10.png" ><br>
 
 - **c) Frecuencia y tiempo de prueba**
    - Duración de la prueba (en segundos, por defecto 10s):
+     
     <img src="/Practico/Laboratorio2/Imagenes_tp2/11.png" ><br>
 
 - **d) Ancho de banda**
    - Definir ancho de banda UDP
+     
     <img src="/Practico/Laboratorio2/Imagenes_tp2/12.png" ><br>
 
 ## 4- 
