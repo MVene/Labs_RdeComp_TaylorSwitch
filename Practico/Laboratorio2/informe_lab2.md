@@ -198,7 +198,42 @@ Finalmente, se confirma que existe una relación entre los parámetros de la pru
 
 En resumen, TCP ofrece mayor rendimiento y confiabilidad, adaptándose a las condiciones de la red, mientras que UDP, aunque más simple y liviano, requiere una configuración adecuada para evitar pérdidas, especialmente cuando se aumenta el tráfico.
 
-  
+## 5-
 
+Se ejecutó una prueba de rendimiento de red desde una computadora del grupo utilizando la herramienta iperf3, en modo cliente, hacia un servidor propuesto en clase. El comando utilizado fue:
+
+
+      iperf3 -c 34.176.225.102 -p 2222
+
+<img src="Imagenes_tp2/16.png" ><br>   
+
+**Análisis de la prueba:**
+
+  - **Protocolo utilizado:** TCP (por defecto en iperf3 al no especificar UDP).
+
+  - **Duración:** 10 segundos, que corresponde al valor por defecto de la herramienta.
+
+  - **Tasa de transferencia promedio:**
+
+      Remitente (sender): 36.0 Mbits/sec.
+
+      Receptor (receiver): 35.0 Mbits/sec.
+
+  - **Retransmisiones:** Se registró solo una retransmisión, lo cual indica una conexión estable, sin pérdidas significativas de paquetes.
+
+  - **Tamaño de la ventana de congestión (cwnd):** Se observó un crecimiento progresivo durante la prueba, lo que evidencia un comportamiento normal del control de congestión de TCP, ajustando dinámicamente la ventana en función de las condiciones de la red.
+
+
+En comparación con la prueba realizada en el punto 2 en la que se alcanzaron 94 Mbps con TCP y 1.05 Mbps con UDP, puede observarse una diferencia significativa en cuanto al rendimiento alcanzado por TCP. Esta conexión tuvo un rendimiento menor, lo cual puede atribuirse a factores como la calidad del enlace, el estado de la red en ese momento, o incluso a la ubicación geográfica del cliente.
+
+Ambas pruebas comparten algunas características similares:
+
+  - **Duración:** 10 segundos.
+
+  - **Estabilidad:** No se observaron pérdidas de paquetes significativas.
+
+  - **Protocolo TCP:** En ambas pruebas se adaptó bien al canal, sin congestión notable.
+
+Esta prueba no incluyó UDP, por lo que no se puede hacer una comparación directa en ese aspecto.
 
 
