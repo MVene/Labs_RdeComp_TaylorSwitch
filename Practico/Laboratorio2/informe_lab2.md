@@ -157,6 +157,7 @@ Para verificar el funcionamiento correcto de las rutas estáticas configuradas e
 Esto indica que iperf3 está esperando conexiones en el puerto 5201 (puerto por defecto de iperf3). Un cliente que se conecte a esa IP y puerto puede empezar a hacer pruebas de red.
 
   - Iniciar el cliente:
+  
 <img src="/Practico/Laboratorio2/Imagenes_tp2/7.png" ><br>
 
 - **a) Protocolos TCP y UDP**
