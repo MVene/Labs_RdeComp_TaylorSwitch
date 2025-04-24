@@ -46,6 +46,10 @@
 
 
 ## 2-
+<p align="center">
+<img src="/Practico/Laboratorio3/Imagenes_tp3/1.jpg" ><br>
+ <span><i>Imagen 1.Topologia de red</i></span>
+</p>
 Para diseñar el esquema de direccionamiento IP, se segmenta una red clase A o B para los hosts y se utiliza una red clase C para las conexiones entre routers.
 
 * **Red Clase A para Hosts:** 10.0.0.0 /16
