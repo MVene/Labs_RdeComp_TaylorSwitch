@@ -140,6 +140,31 @@ Luego se consultó la tabla de enrutamiento con ```bash show ip route ``` , obse
 <img src="/Practico/Laboratorio3/Imagenes_tp3/11.jpg" >
 <img src="/Practico/Laboratorio3/Imagenes_tp3/12.jpg" >
 
+## 4-
+Con el objetivo de comprender en profundidad el funcionamiento del protocolo OSPF (Open Shortest Path First) y su impacto en la dinámica de la red, se llevó a cabo un análisis detallado de los mensajes intercambiados entre routers. OSPF es un protocolo de enrutamiento de estado de enlace que utiliza cinco tipos principales de paquetes para establecer, mantener y actualizar la topología de la red: Hello, Database Description (DBD), Link-State Request (LSR), Link-State Update (LSU) y Link-State Acknowledgment (LSAck).
+
+Para identificar y analizar estos mensajes en detalle, se utilizó el modo de simulación paso a paso, lo cual permitió observar de manera controlada y secuencial el proceso de establecimiento de adyacencias, el intercambio de información de estado de enlace y la actualización de las bases de datos de los routers:
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/16.jpg" >
+
+Se observó especialmente el intercambio de paquetes Hello, fundamentales para establecer y mantener las adyacencias entre routers que utilizan el protocolo OSPF (Open Shortest Path First). Estos paquetes permiten detectar vecinos en la misma red, verificar la compatibilidad de parámetros (como el intervalo de Hello, Dead interval, ID de router, etc.) y mantener activa la relación de vecindad.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/17.jpg" >
+
+Además, se visualizaron los paquetes Link-State Update (LSU), que contienen información sobre los cambios en el estado de los enlaces dentro de la red. Esta información es crítica para mantener actualizadas las bases de datos de estado de enlace (LSDB, Link-State Database) en todos los routers del área OSPF. Cada LSU puede incluir múltiples Link-State Advertisements (LSA), los cuales describen el estado y las conexiones de un router.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/18.jpg" >
+
+Para asegurar una comunicación confiable, también se observó el envío de paquetes Link-State Acknowledgment (LSAck). Estos se utilizan para confirmar la recepción correcta de los LSUs, ya que OSPF, aunque es un protocolo confiable en cuanto a consistencia de base de datos, se basa en IP, un protocolo no confiable. Por ello, el acuse de recibo garantiza que los LSAs no se pierdan durante la transmisión.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/18.jpg" >
+
+Gracias al intercambio de estos mensajes —Hello, LSU y LSAck—, los routers pueden construir una LSDB coherente y sincronizada en toda el área OSPF. A partir de esta base de datos, cada router ejecuta el algoritmo de Dijkstra (también conocido como algoritmo SPF, Shortest Path First) para calcular las rutas óptimas hacia cada destino en la red.
+
+
+
+
+
 
 
 
