@@ -47,7 +47,7 @@
 
 ## 2-
 <p align="center">
-<img src="/Practico/Laboratorio3/Imagenes_tp3/1.jpg" ><br>
+<img src="/Practico/Laboratorio3/Imagenes_tp3/2.jpg" ><br>
  <span><i>Imagen 1.Topologia de red</i></span>
 </p>
 Para diseñar el esquema de direccionamiento IP, se segmenta una red clase A o B para los hosts y se utiliza una red clase C para las conexiones entre routers.
@@ -81,7 +81,65 @@ Para diseñar el esquema de direccionamiento IP, se segmenta una red clase A o B
 | h4          | NIC      | 10.0.3.10        | 255.255.0.0       |
 | h5          | NIC      | 10.0.4.10        | 255.255.0.0       |
 
+## 3-
+Cada router fue configurado con sus respectivas interfaces IP, tanto en los enlaces punto a punto como hacia las redes de hosts. Luego, se habilitó el protocolo OSPF utilizando el proceso número 1 (router ospf 1) y se asignaron todas las redes.
 
+**Configuración del Router R2:**
+ ```bash
+enable
+configure terminal
+
+
+interface Serial1/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface Serial1/1
+ip address 192.168.5.1 255.255.255.0
+no shutdown
+exit
+
+interface FastEthernet0/0
+ip address 10.0.0.1 255.0.0.0
+no shutdown
+exit
+
+router ospf 1
+network 10.0.0.0 0.255.255.255 area 0
+network 192.168.1.0 0.0.0.255 area 0
+network 192.168.5.0 0.0.0.255 area 0
+
+```
+Lo mismo se realiza con los demás routers. En particular, en el router R1 es necesario configurar una interfaz de loopback. Esto se hace de la misma forma que con las demás interfaces, especificando el nombre de interfaz como Loopback0
+
+```bash
+enable
+configure terminal
+
+interface Loopback0
+ip address 1.1.1.1 255.255.255.255
+no shutdown
+```
+
+Se utilizó ```bash show ip ospf neighbor ```para verificar el establecimiento de relaciones de vecinos OSPF entre routers directamente conectados.
+
+ <img src="/Practico/Laboratorio3/Imagenes_tp3/3.jpg" >
+ <img src="/Practico/Laboratorio3/Imagenes_tp3/4.jpg" >
+ <img src="/Practico/Laboratorio3/Imagenes_tp3/5.jpg" >
+ <img src="/Practico/Laboratorio3/Imagenes_tp3/6.jpg" >
+ <img src="/Practico/Laboratorio3/Imagenes_tp3/7.jpg" >
  
+Se realizaron pruebas de ping entre hosts y routers, confirmando la propagación de rutas y la correcta conectividad extremo a extremo.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/9.jpg" >
+
+Luego se consultó la tabla de enrutamiento con ```bash show ip route ``` , observando entradas con la letra "O", que indican rutas aprendidas dinámicamente por OSPF
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/10.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/11.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/12.jpg" >
+
+
 
 
