@@ -122,7 +122,7 @@ ip address 1.1.1.1 255.255.255.255
 no shutdown
 ```
 
-Se utilizó ```bash show ip ospf neighbor ```para verificar el establecimiento de relaciones de vecinos OSPF entre routers directamente conectados.
+Se utilizó `show ip ospf neighbor` para verificar el establecimiento de relaciones de vecinos OSPF entre routers directamente conectados.
 
  <img src="/Practico/Laboratorio3/Imagenes_tp3/3.jpg" >
  <img src="/Practico/Laboratorio3/Imagenes_tp3/4.jpg" >
@@ -134,7 +134,7 @@ Se realizaron pruebas de ping entre hosts y routers, confirmando la propagación
 
 <img src="/Practico/Laboratorio3/Imagenes_tp3/9.jpg" >
 
-Luego se consultó la tabla de enrutamiento con ```bash show ip route ``` , observando entradas con la letra "O", que indican rutas aprendidas dinámicamente por OSPF
+Luego se consultó la tabla de enrutamiento con ` show ip route ` , observando entradas con la letra "O", que indican rutas aprendidas dinámicamente por OSPF
 
 <img src="/Practico/Laboratorio3/Imagenes_tp3/10.jpg" >
 <img src="/Practico/Laboratorio3/Imagenes_tp3/11.jpg" >
@@ -160,6 +160,35 @@ Para asegurar una comunicación confiable, también se observó el envío de paq
 <img src="/Practico/Laboratorio3/Imagenes_tp3/18.jpg" >
 
 Gracias al intercambio de estos mensajes —Hello, LSU y LSAck—, los routers pueden construir una LSDB coherente y sincronizada en toda el área OSPF. A partir de esta base de datos, cada router ejecuta el algoritmo de Dijkstra (también conocido como algoritmo SPF, Shortest Path First) para calcular las rutas óptimas hacia cada destino en la red.
+
+## 5-
+## a)
+En cada router se configuró el protocolo OSPF (Open Shortest Path First) para anunciar sus redes directamente conectadas. Esto se realizó mediante el uso del comando `network ` dentro del proceso OSPF correspondiente. Gracias a esta configuración, los routers pueden intercambiar información sobre sus enlaces con el resto de los dispositivos de la red, lo que permite la construcción automática de rutas dinámicas y optimizadas. Además, OSPF garantiza una rápida convergencia ante cambios en la topología y mejora la escalabilidad de la red.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/20.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/21.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/22.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/23.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/24.jpg" >
+
+## b)
+Se utilizó el comando `show ip ospf database` en cada router para acceder al contenido de la Link-State Database (LSDB). Esta base de datos contiene información detallada sobre todos los routers y redes conocidas dentro del área OSPF a la que pertenece el dispositivo. Gracias a esta información, cada router puede construir un mapa topológico completo de su área y calcular la ruta más eficiente hacia cada destino utilizando el algoritmo de Dijkstra.
+A continuación, se presentan los resultados observados antes de definir múltiples áreas OSPF en los routers A y B, cuando todos los dispositivos aún formaban parte de una única área (generalmente el área por defecto, área 0)
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/25.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/26.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/27.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/28.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/29.jpg" >
+
+| Campo       | Significado                                                                                                                                                    |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Link ID     | Identificador del router o red anunciada. En los Router Link States, suele coincidir con el Router ID del router que generó esa LSA.                           |
+| ADV Router  | (Advertising Router) ID del router que generó la LSA. Puede coincidir con el Link ID o ser distinto si es una red.                                             |
+| Age         | Tiempo (en segundos) desde que se originó o recibió la LSA. Cuando llega a 1800 segundos (30 minutos), se considera "vieja" y debe actualizarse.               |
+| Seq#        | (Sequence Number) Número de secuencia que identifica la versión de la LSA. OSPF usa esto para saber si una LSA es más reciente que otra.                       |
+| Checksum    | Verificación de integridad de la LSA. Sirve para detectar errores en la transmisión de la base de datos.                                                       |
+| Link count  | Cantidad de enlaces (links) que el router tiene, es decir, cuántas interfaces OSPF activas anuncia. Aplica solo a LSAs de tipo Router.                         |
 
 
 
