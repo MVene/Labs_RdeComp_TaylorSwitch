@@ -297,4 +297,72 @@ Para ver el estado de la base de datos de OSPF (LSDB, Link-State Database) en el
 <img src="/Practico/Laboratorio3/Imagenes_tp3/30.jpg" >
 <img src="/Practico/Laboratorio3/Imagenes_tp3/31.jpg" >
 
+## 7-
+## a)
+Para visualizar los vecinos OSPF directamente conectados, se utilizó el siguiente comando en R2 `show ip ospf neighbor`, el cual muestra una lista de routers vecinos con los que R2 ha establecido adyacencias OSPF exitosas.
 
+<img src="/Practico/Laboratorio3/Imagenes_tp3/34.jpg" >
+
+* Neighbor ID 1.1.1.1:
+  * Corresponde al router R1.
+  * Está conectado por Serial1/0 y también tiene un enlace a través de OSPF Virtual-Link (OSP_VL0), que se creó para mantener la conectividad al Área 0 (backbone).
+
+* Neighbor ID 3.3.3.3:
+  * Corresponde al router R3.
+  * La conexión es directa por la interfaz Serial1/1.
+
+* Estado FULL:
+  * El estado "FULL" indica que se ha formado exitosamente una adyacencia completa con ambos routers vecinos. Es el estado óptimo en OSPF.
+
+* Dead Time:
+  * Se está recibiendo constantemente "Hello packets", ya que el contador se reinicia a 31 segundos, indicando buena comunicación.
+  * R2 tiene adyacencias OSPF completamente funcionales con sus vecinos R1 y R3.
+  * El enlace virtual (OSPF_VL0) entre R1 y R2 está operativo, lo que permite que R1 tenga acceso lógico al Área 0 como exige OSPF.
+
+## b)
+Para revisar el estado general del proceso OSPF y sus operaciones, se utilizaron los siguientes comandos en R2:
+
+**1. Para ver información del proceso OSPF:**
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/35.jpg" >
+
+* Router ID: 2.2.2.2
+Es el identificador único de R2 en OSPF.
+Nota: Este ID fue asignado manualmente para mejor identificación y administración de la red.
+
+* Rol:
+  * El router es un ABR (Area Border Router).
+  *Esto significa que conecta Área 1 y Área 0 (Backbone), permitiendo el intercambio de rutas entre áreas.
+
+* SPF Algorithm:
+  * El algoritmo SPF (Shortest Path First) se ha ejecutado varias veces (9 en área 0 y 14 en área 1).
+  * Esto indica que R2 ha recalculado rutas, ya sea por cambios de topología o configuraciones.
+
+* Áreas que maneja:
+  * Área BACKBONE (0):
+     Tiene 1 interfaz activa en esta área.
+
+  * Área 1:
+    Tiene 2 interfaces activas.
+
+* Número de LSA:
+Se muestran diferentes tipos de LSAs (Link-State Advertisements) que ayudan a construir la topología de red.
+No hay LSAs externos (Type 5), lo que es normal en una red interna sin rutas externas.
+
+**2. Para ver rutas OSPF en la tabla de enrutamiento:**
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/36.jpg" >
+
+La tabla muestra múltiples rutas aprendidas por OSPF:
+* O → Ruta aprendida dentro del área (intra-área).
+* O IA → Ruta aprendida de otra área (inter-área).
+
+Entradas importantes:
+* 1.1.1.1/32 → La loopback de R1 (vía 192.168.1.2).
+* 172.18.0.0/16, 172.19.0.0/16 → Redes conectadas a R4 y R5, respectivamente.
+* 192.168.2.0/24, 192.168.3.0/24, 192.168.4.0/24, 192.168.6.0/24 → Enlaces de interconexión de la topología.
+* Via:
+  * Todas las rutas indican que el siguiente salto (next hop) es uno de los vecinos R1 o R3, a través de las interfaces Serial1/0 y Serial1/1.
+* [110/XX]:
+  * 110 es el administrative distance de OSPF.
+  * El valor luego de la barra (65, 129) es el costo OSPF de llegar a esa red.
