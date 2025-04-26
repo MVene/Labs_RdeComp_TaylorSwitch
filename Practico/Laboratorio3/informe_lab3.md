@@ -190,10 +190,111 @@ A continuación, se presentan los resultados observados antes de definir múltip
 | Checksum    | Verificación de integridad de la LSA. Sirve para detectar errores en la transmisión de la base de datos.                                                       |
 | Link count  | Cantidad de enlaces (links) que el router tiene, es decir, cuántas interfaces OSPF activas anuncia. Aplica solo a LSAs de tipo Router.                         |
 
+## 6-
+Inicialmente, toda la red estaba configurada dentro del área 0 de OSPF, siguiendo el esquema backbone tradicional. Sin embargo, el nuevo requerimiento consiste en dividir la red en dos áreas específicas para optimizar el enrutamiento y segmentar la topología de la siguiente manera:
 
+Área A (Área 1): Incluye a los routers R1 y R2.
 
+Área B (Área 2): Incluye a los routers R3, R4 y R5.
 
+Para lograr esto, se procedió a realizar los siguientes cambios:
 
+Configuración de Routers:
 
+* R1:
+
+Se reclasificaron todas sus interfaces (incluida la Loopback 1.1.1.1) al Área 1.
+
+Se eliminó la asignación previa al Área 0.
+```bash
+conf t
+router ospf 1
+no network 1.1.1.1 0.0.0.0 area 0
+no network 192.168.1.0 0.0.0.255 area 0
+no network 192.168.2.0 0.0.0.255 area 0
+network 1.1.1.1 0.0.0.0 area 1
+network 192.168.1.0 0.0.0.255 area 1
+network 192.168.2.0 0.0.0.255 area 1
+area 1 virtual-link 2.2.2.2
+exit
+```
+
+* R2:
+
+Actúa como ABR (Area Border Router), manteniendo conexión entre el Área 1 (LAN interna y conexión a R1) y el Área 0 (hacia R3).
+
+Las interfaces hacia la LAN se configuraron en Área 1 y la conexión de backbone se dejó en Área 0.
+```bash
+conf t
+router ospf 1
+no network 192.168.1.0 0.0.0.255 area 0
+no network 192.168.5.0 0.0.0.255 area 0
+no network 10.0.0.0 0.0.0.255 area 0
+network 192.168.1.0 0.0.0.255 area 1
+network 10.0.0.0 0.0.0.255 area 1
+network 192.168.5.0 0.0.0.255 area 0
+area 1 virtual-link 1.1.1.1
+```
+* R3:
+
+También se desempeña como ABR, conectando el Área 0 (hacia R2) con el Área 2 (hacia R4 y R5).
+```bash
+conf t
+router ospf 1
+no network 192.168.3.0 0.0.0.255 area 0
+no network 192.168.4.0 0.0.0.255 area 0
+no network 192.168.5.0 0.0.0.255 area 0
+network 192.168.5.0 0.0.0.255 area 0
+network 192.168.3.0 0.0.0.255 area 2
+network 192.168.4.0 0.0.0.255 area 2
+```
+* R4 y R5:
+
+Ambos routers se configuraron completamente dentro del Área 2.
+```bash
+conf t
+router ospf 1
+no network 192.168.3.0 0.0.0.255 area 0
+no network 192.168.6.0 0.0.0.255 area 0
+no network 172.18.0.0 0.0.0.255 area 0
+network 192.168.3.0 0.0.0.255 area 2
+network 192.168.6.0 0.0.0.255 area 2
+network 172.18.0.0 0.0.0.255 area 2
+```
+```bash
+conf t
+router ospf 1
+no network 192.168.4.0 0.0.0.255 area 0
+no network 172.19.0.0 0.0.0.255 area 0
+network 192.168.4.0 0.0.0.255 area 2
+network 172.19.0.0 0.0.0.255 area 2
+exit
+```
+
+Para facilitar la identificación y administración de la red OSPF, se asignó manualmente un Router ID único a cada router.
+Esto mejora la claridad en el monitoreo, la lectura de la base de datos LSDB y la resolución de problemas, evitando que el Router ID sea elegido automáticamente (lo cual podría causar confusión si cambia una IP).
+
+El Router ID se configuró con el comando:
+```bash
+router ospf 1
+router-id X.X.X.X
+```
+Donde X.X.X.X corresponde a un identificador único por router (por ejemplo, 1.1.1.1 para R1, 2.2.2.2 para R2, etc.).
+
+Durante la reconfiguración, se detectó un error en R1:
+```bash
+%OSPF-4-ERRRCV: Received invalid packet: mismatch area ID, from backbone area must be virtual-link but not found
+```
+Este error ocurre porque OSPF requiere que todo router que forme parte de OSPF esté conectado lógica o físicamente al Área 0. Al haber movido R1 al Área 1, ya no existía una conexión directa al backbone, por lo que fue necesario configurar un enlace virtual (virtual-link) entre R1 y R2 para mantener la conectividad OSPF adecuada.
+
+Por tal motivo se configuró un enlace virtual entre R1 y R2 sobre el Área 1, utilizando los Router ID de ambos dispositivos, asegurando así que R1 pudiera alcanzar el Área 0 a través de R2.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/32.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/33.jpg" >
+
+Para ver el estado de la base de datos de OSPF (LSDB, Link-State Database) en el router se utiliza el comando `show ip ospf database`
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/30.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/31.jpg" >
 
 
