@@ -366,3 +366,130 @@ Entradas importantes:
 * [110/XX]:
   * 110 es el administrative distance de OSPF.
   * El valor luego de la barra (65, 129) es el costo OSPF de llegar a esa red.
+
+## 8-
+## a)
+En OSPF, cada interfaz tiene un costo asociado que representa el "peso" del enlace. Este valor se utiliza para calcular la mejor ruta posible mediante el algoritmo de Dijkstra. Por defecto, el costo se determina en función del ancho de banda del enlace, pero puede ajustarse manualmente para influir en la selección de rutas.
+En este caso, se modifica el costo de un enlace intermedio con el objetivo de observar cómo OSPF cambia la ruta seleccionada desde un origen (h1) hasta un destino (h4).
+* h1 está conectado al router R2.
+* h4 está conectado al router R4.
+
+Existen dos posibles rutas entre R2 y R4:
+* Ruta 1: R2 → R3 → R4
+* Ruta 2: R2 → R3 → R5 → R4
+
+Ambas rutas atraviesan tres routers, por lo tanto, la decisión de OSPF dependerá del costo total acumulado en cada trayecto.
+Para forzar a OSPF a elegir la segunda ruta, se incrementa manualmente el costo del enlace R3–R4. Esta acción provoca que OSPF considere más eficiente la ruta alternativa: R2 → R3 → R5 → R4.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/45.jpg">
+
+## b)
+Para observar el impacto de la modificación de costos en la selección de rutas OSPF, se realizaron pruebas utilizando el comando `traceroute` desde el host h1 (conectado a R2) hacia el host h4 (conectado a R4), antes y después de alterar el costo de un enlace específico.
+Antes de realizar cualquier cambio en la configuración de OSPF, se ejecutó un traceroute desde h1 hacia h4.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/43.jpg" >
+
+La salida muestra que OSPF elige la ruta más corta basada en el costo predeterminado de los enlaces, que corresponde al siguiente camino:
+Ruta utilizada:
+R2 → R3 → R4
+Esto se debe a que, inicialmente, esta ruta tiene el menor costo acumulado según los valores por defecto establecidos por OSPF.
+Después del cambio, se repitió la prueba con traceroute desde h1 a h4.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/44.jpg" >
+
+La salida evidencia un cambio en los saltos intermedios, lo que confirma que OSPF ha elegido una nueva ruta.
+Nueva ruta utilizada:
+R2 → R3 → R5 → R4
+Este nuevo camino es preferido porque su costo acumulado es ahora menor que el de la ruta directa R3–R4, tras el aumento del costo en ese enlace.
+
+## 9-
+## a)
+Se crea una interfaz de loopback en el router R1 para simular la conexión a un proveedor de servicios externo (ISP). Esta interfaz representa una red ficticia hacia Internet.
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/46.jpg" >
+
+## b) 
+Se configura una ruta estática predeterminada que indique que cualquier tráfico hacia una red desconocida debe enviarse por la interfaz simulada del ISP:
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/47.jpg" >
+
+Esta ruta define que todos los destinos no específicos deben enviarse hacia esa dirección (la interfaz loopback0).
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/50.jpg" >
+
+## c) 
+Para que el resto de los routers en la red conozcan esta ruta predeterminada, se configura R1 para que la redistribuya a través de OSPF utilizando el comando `default-information originate`
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/48.jpg" >
+
+Esto le indica a R1 que incluya la ruta 0.0.0.0/0 en sus actualizaciones OSPF, permitiendo que todos los demás routers la aprendan y puedan redirigir tráfico externo hacia él.
+
+Se verificó la tabla de enrutamiento en los routers R2, R3, R4 y R5 para confirmar que efectivamente recibieron la ruta predeterminada redistribuida por el router R1 mediante OSPF.
+<img src="/Practico/Laboratorio3/Imagenes_tp3/49.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/51.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/52.jpg" >
+<img src="/Practico/Laboratorio3/Imagenes_tp3/53.jpg" >
+
+Observaciones:
+* O: La ruta fue aprendida mediante el protocolo OSPF.
+* *: Es la ruta candidata como Gateway of Last Resort (Puerta de Enlace de Último Recurso).
+* E2: Se trata de una ruta externa tipo 2. Esto significa que:
+
+La métrica externa asignada (por defecto 1) no se incrementa al atravesar routers internos OSPF, a diferencia de las rutas E1.
+Esta ruta predeterminada 0.0.0.0/0 permite que cualquier dispositivo de la red (por ejemplo, el host h4) pueda enviar tráfico hacia destinos desconocidos — es decir, IP fuera del dominio OSPF o de su tabla de rutas.
+Ese tráfico será encaminado automáticamente hacia el siguiente salto hacia R1, quien actúa como puerta de enlace hacia el exterior (simulada con la interfaz Loopback0).
+
+## 10- 
+El router R2 cumple un rol importante como nodo intermedio en la topología, ya que se encuentra conectado a varios routers y dispositivos de la red. Si una de sus interfaces cae, el impacto dependerá de cuál de ellas sea:
+a) Caída del enlace R2 – R1
+* Esta interfaz probablemente forma parte del backbone o del área principal (Área 0) del protocolo OSPF.
+* Si se interrumpe, se perderá la conectividad directa entre R2 y R1.
+* El enrutamiento OSPF detectará la caída mediante los Hello/Dead intervals (~40 segundos por defecto) y actualizará las tablas de ruteo en toda la red.
+* Si existen rutas alternativas (por ejemplo, vía R3 o R5), OSPF recalculará el mejor camino usando el algoritmo de Dijkstra y restablecerá la conectividad.
+* Sin embargo, si R1 solo estaba accesible por R2, se perdería la salida hacia la ruta por defecto o hacia el ISP simulado.
+
+b) Caída del enlace R2 – R3
+* Esta caída afecta directamente una de las rutas disponibles entre R2 y R4 (recordando que existían dos rutas posibles: vía R3 o vía R5).
+* OSPF eliminará esta ruta al detectar que el enlace ya no está disponible y utilizará automáticamente la ruta alternativa, siempre que los costos lo permitan.
+* El tráfico puede redirigirse por otro camino como R2 → R5 → R4, manteniendo la conectividad.
+
+c) Caída del enlace R2 – S1 (Switch o PC conectado)
+* Este enlace generalmente conecta R2 con dispositivos finales como hosts (por ejemplo, h1) o conmutadores.
+* Si se cae esta interfaz, los dispositivos conectados directamente a R2 (como PCs) perderán la conectividad hacia el resto de la red.
+* Este impacto es local, es decir, no afecta a otros routers OSPF, pero impide que el host envíe o reciba paquetes más allá de R2.
+
+
+## 11- 
+**RIB – Routing Information Base**
+* Es la tabla de enrutamiento tradicional, que almacena todas las rutas aprendidas por protocolos dinámicos (OSPF, RIP, EIGRP), rutas estáticas y rutas conectadas directamente.
+* El router utiliza esta base de datos para determinar cuál es la mejor ruta hacia cada red, basándose en métrica y prioridades.
+* Se puede visualizar con el comando: `show ip route` 
+
+**FIB – Forwarding Information Base**
+* Es la tabla utilizada por CEF (Cisco Express Forwarding) para reenviar paquetes de forma eficiente.
+* Contiene solo las mejores rutas ya seleccionadas por la RIB, pero está optimizada para un reenvío rápido de paquetes.
+* Incluye información detallada como la interfaz de salida y el próximo salto.
+* Se puede visualizar con el comando:  `show ip cef `
+
+<img src="/Practico/Laboratorio3/Imagenes_tp3/54.jpg" >
+
+* 1. Ruta por defecto (default route) `0.0.0.0/0            192.168.5.1`
+Esto indica que todo el tráfico que no tenga una ruta específica será enviado al siguiente salto 192.168.5.1. Es tu gateway of last resort (salida hacia internet o redes desconocidas).
+
+* 2. Redes directamente conectadas `192.168.2.0/24       attached             Serial1/3`
+Significa que esa red está directamente conectada al router a través de la interfaz Serial1/3.
+
+Las líneas: `192.168.2.2/32       receive`
+Indican direcciones IP que pertenecen a este router. Es decir, si llega un paquete a esa IP, el router lo procesa localmente, no lo reenvía.
+
+* 3. Rutas aprendidas por OSPF o estáticas
+`172.19.0.0/16        192.168.4.1`
+Esto significa que para alcanzar esa red, el router enviará los paquetes al siguiente salto 192.168.4.1, probablemente aprendido por OSPF o una ruta estática.
+
+* 4. Redes multicast y especiales
+`224.0.0.0/4          drop`
+`224.0.0.0/24         receive`
+Las direcciones multicast no se reenvían por defecto, por eso se indica drop. Pero ciertos rangos (224.0.0.0/24) son usados por protocolos internos como OSPF y son aceptados (receive).
+
+
+
