@@ -79,6 +79,10 @@
 2. 
 
 - A:
+    - Los ASes anuncian su política de ruteo a otros ASes y routers mediante el _Border Gateway Protocol_(BGP). BGP es el protocolo de ruteo de paquetes de datos entre ASes. Sin esta información de ruteo, los paquetes de información se perderían, ó tomarían demasiado tiempo para llegar a su destino. \
+    Cada AS usa BGP para anunciar de qué dirección de IP son responsables, y a qué otros AS están conectados. Los routers BGP toman esta información de los ASes y la ponene en bases de datos llamadas _tablas de ruteo_ para determinar el  camino más rápido de AS a AS. Cuando los paquetes llegan, los routers BGP refieren a sus tablas de ruteo, para determinar a qué AS debe ir el paquete.
+
+
 - B:
 - C:
 - D:
