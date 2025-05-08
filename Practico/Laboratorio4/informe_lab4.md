@@ -3,7 +3,7 @@
 
 ### Integrantes
 
-- Gastón E. Fernandez
+- Gastón E. Fernández
 - María L. Guimpelevich
 - Karen Y. Robles
 - David Trujillo
@@ -13,7 +13,7 @@
 
  "Taylor Switch"
 
-### Universidad Nacional de Cordoba - FCEFyN
+### Universidad Nacional de Córdoba - FCEFyN
 
 ### Cátedra de Redes de computadoras
 
@@ -37,12 +37,12 @@
 #### 1. 
 
 - A: 
-    - Los sistemas autonomos son grandes redes que forman el internet. Más específicamente, un sistema autonomo (AS) es una gran red, ó grupo de redes que tienen una política de ruteo unificada. \
+    - Los sistemas autónomos son grandes redes que forman el internet. Más específicamente, un sistema autónomo (AS) es una gran red, ó grupo de redes que tienen una política de ruteo unificada. \
     De esta manera, al enviar paquetes de datos a través del internet, estos saltan de AS a AS, hasta que alcanzan el AS que contiene su dirección IP de destino. Y los routers dentro de ese AS envía el paquete a la dirección IP.
-    - Política de Ruteo:  Una política de ruteo de AS es una lista de direcciones IP del espacio que controla el AS, más una lista del resto de ASes a los que se conecta. Esta información es necesaria para el ruteo de los paquetes a las redes correctas. Los ASes anuncian este informacion al internet usando el _Border Gateway Protocol_(BGP).
+    - Política de Ruteo:  Una política de ruteo de AS es una lista de direcciones IP del espacio que controla el AS, más una lista del resto de ASes a los que se conecta. Esta información es necesaria para el ruteo de los paquetes a las redes correctas. Los ASes anuncian este información al internet usando el _Border Gateway Protocol_(BGP).
 
 - B: 
-    - A cada AS se le asigna un número oficial, ó "número de sistema autonomo" (_autonomous system number_(ASN)), similar a cómo cada empresa  de licencia con un único 'número oficial'.
+    - A cada AS se le asigna un número oficial, ó "número de sistema autónomo" (_autonomous system number_(ASN)), similar a cómo cada empresa  de licencia con un único 'número oficial'.
     - Los número de AS ó ASNs, son números únicos de 16 bits entre "1" y "65534", ó de 32 bits entre "131072" and "4294967294". Se presentan en este formato: AS(número).
     - Los ASNs sólo son requeridos para comunicaciones externas con routers inter-redes.
     - Los AS deben cumplir ciertos requisitos previo a que se le asigne un ASN. Debe tener una política de ruteo específica, ser de cierto tamaño y tener más de una conexión a otros ASes.
@@ -80,10 +80,37 @@
 
 - A:
     - Los ASes anuncian su política de ruteo a otros ASes y routers mediante el _Border Gateway Protocol_(BGP). BGP es el protocolo de ruteo de paquetes de datos entre ASes. Sin esta información de ruteo, los paquetes de información se perderían, ó tomarían demasiado tiempo para llegar a su destino. \
-    Cada AS usa BGP para anunciar de qué dirección de IP son responsables, y a qué otros AS están conectados. Los routers BGP toman esta información de los ASes y la ponene en bases de datos llamadas _tablas de ruteo_ para determinar el  camino más rápido de AS a AS. Cuando los paquetes llegan, los routers BGP refieren a sus tablas de ruteo, para determinar a qué AS debe ir el paquete.
+    Cada AS usa BGP para anunciar de qué dirección de IP son responsables, y a qué otros AS están conectados. Los routers BGP toman esta información de los ASes y la pone en bases de datos llamadas _tablas de ruteo_ para determinar el  camino más rápido de AS a AS. Cuando los paquetes llegan, los routers BGP refieren a sus tablas de ruteo, para determinar a qué AS debe ir el paquete.
 
+- B: El BGP funciona mediante 3 procedimientos funcionales.
+    
+    - B.1: Adquisición de Vecinos.
+        - Este proceso ocurre cuando un router BGP intenta establecer una conexión con otro router BGP (llamado peer o vecino).
+        - BGP utiliza TCP (puerto 179) para establecer la conexión.
+        - Una vez establecida la conexión TCP, se intercambian mensajes OPEN, sí ambos lados aceptan los parámetros intercambiados (como ASN, BGP ID, capacidades), se establece la sesión BGP.
+    
+    - B.2: Detección de vecino alcanzable _(Neighbor Liveness Detection)_
+        - Después de establecer la sesión, se envían mensajes KEEPALIVE periódicamente para mantener la conexión activa.
+        - Si no se recibe un KEEPALIVE o cualquier otro mensaje en un intervalo (Hold Time), se considera que el vecino está inalcanzable, y se cierra la sesión.
+    
+    - B.3: Detección de red alcanzable _(Reachability Detection)_
+        - Los routers BGP intercambian mensajes UPDATE para anunciar o retirar rutas (prefijos de red).
+        - Estos anuncios contienen atributos como el AS Path, Next Hop, MED, etc.
+        - La tabla BGP se actualiza con la mejor ruta según estos atributos y políticas  de enrutamiento.
+        - Cuando una red deja de estar disponible, se envía una actualización con la ruta retirada (withdrawal).
 
-- B:
+    - B.4: Tipos de Mensajes en BGP:
+        - OPEN: Iniciar una conexión BGP, intercambiar parámetros básicos.
+        - KEEPALIVE: Confirmar que la conexión sigue activa (se envía periódicamente).
+        - UPDATE: Anunciar nuevas rutas o retirar rutas existentes.
+        - NOTIFICATION: Señalar errores y cerrar la conexión.
+
+    - B.5: Formato de Paquetes en BGP
+        - Cada mensaje BGP tiene una cabecera común de 19 bytes.
+        - Marker: 16 bytes, usado para detección de errores (típicamente todos 1s).
+        - Lenght: 2 bytes, longitud total del mensaje (mínimo 19 bytes, máximo 4096).
+        - Type: 1 byte, tipo de mensaje (OPEN, UPDATE, etc)
+  
 - C:
 - D:
 - E:
