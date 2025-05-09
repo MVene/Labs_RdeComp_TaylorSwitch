@@ -89,5 +89,99 @@
 - E:
 - F:
 
-### Parte 2.
-#### 1.
+# Parte II - Simulaciones y análisis
+Se implementó una topología de red compuesta por dos Sistemas Autónomos (AS100 y AS200) utilizando Cisco Packet Tracer, con el propósito de configurar y analizar el protocolo BGP (Border Gateway Protocol) para permitir el intercambio de rutas entre ambos AS. La configuración busca simular un escenario de interconexión entre redes independientes, utilizando BGP como protocolo de enrutamiento externo (eBGP).
+
+<p align="center">
+<img src="/Practico/Laboratorio4/Imagenes_tp4/11.jpg" ><br>
+ <span><i>Imagen 1.Topologia de red</i></span>
+</p>
+
+## 1- 
+Se investigaron y aplicaron los siguientes comandos clave en la CLI de los routers (Router0 y Router1) con el objetivo de configurar, verificar y analizar el funcionamiento del protocolo BGP:
+
+```bash
+show ip bgp summary
+
+```
+ Este comando muestra un resumen del estado del protocolo BGP en el router. Es útil para verificar rápidamente:
+- Qué vecinos BGP están configurados.
+- Si las sesiones están activas (Established).
+- Cuántas rutas (prefijos) se han recibido de cada vecino.
+- Qué número de AS tiene el router.
+- Cuánto tiempo lleva activa cada sesión BGP.
+  
+<img src="/Practico/Laboratorio4/Imagenes_tp4/1.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/2.jpg" >
+
+*Fragmento que evidencia BGP:*
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/12.jpg" >
+
+- Router ID: 192.168.1.1 → Identificador único de BGP (generalmente se toma la IP más alta de una interfaz activa si no se configura manualmente).
+- Local AS: 100 → Este router pertenece al Sistema Autónomo 100.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/13.jpg" >
+
+- Router ID: 192.168.2.1 → Identificador único de BGP 
+- Local AS: 200 → Este router pertenece al Sistema Autónomo 200.
+
+```bash
+show ip bgp
+```
+Se utiliza para visualizar la tabla BGP (Border Gateway Protocol). Esta tabla contiene todas las rutas BGP que el router ha aprendido de sus vecinos, así como las rutas locales que está anunciando. Es una herramienta fundamental para diagnosticar y comprender cómo está funcionando el ruteo BGP en la red.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/5.jpg" >
+
+- 192.168.1.0/24
+  - Es red local del Router0.
+  - El next hop es 0.0.0.0 → indica que la red fue originada localmente (por comando network).
+  - El weight (32768) indica que es la preferida (es el valor por defecto para rutas locales).
+  - El símbolo *> indica que es válida y la mejor ruta.
+  - El origen es ? → incompleto (posiblemente redistribuida o configurada sin IGP).
+
+- 192.168.2.0/24
+  - Aprendida desde el vecino 10.0.0.2 (Router1).
+  - El AS 200 aparece en el camino → muestra que esta red pertenece a otro AS.
+  - El origen es i → indica que fue originada en ese router con IGP (probablemente por network).
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/6.jpg" >
+
+```bash
+show ip route bgp
+```
+Este comando muestra únicamente las rutas que han sido aprendidas mediante el protocolo BGP, filtrando otras rutas (como las estáticas, conectadas, OSPF, etc.).
+Muestra:
+- Prefijos o redes aprendidas por BGP.
+- Next-hop (el próximo salto hacia esa red).
+- Métrica BGP (usualmente 20 para eBGP).
+- Interfaz de salida.
+- Tiempo desde que la ruta fue aprendida.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/7.jpg" >
+
+- El router aprendió la red 192.168.2.0/24 (perteneciente al otro AS).
+- El tráfico hacia esa red se envía a través del next-hop 10.0.0.2.
+- El número [20/0] indica:
+  - 20: distancia administrativa para rutas BGP externas (eBGP).
+  - 0: métrica (MED, Multi-Exit Discriminator).
+- El tiempo muestra cuánto hace que la ruta fue aprendida.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/8.jpg" >
+
+```bash
+show running-config | section router bgp
+```
+Muestra la configuración activa del router relacionada con BGP. Incluye el número de sistema autónomo (ASN) local, los vecinos BGP configurados, y las redes que están siendo anunciadas.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/3.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/4.jpg" >
+
+```bash
+show ip protocols
+```
+Ofrece una visión general de los protocolos de enrutamiento activos en el router. En el contexto de BGP, muestra el ASN local, los vecinos configurados, los timers y las redes que están siendo anunciadas por el protocolo.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/9.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/10.jpg" >
+
