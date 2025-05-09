@@ -185,3 +185,26 @@ Ofrece una visión general de los protocolos de enrutamiento activos en el route
 <img src="/Practico/Laboratorio4/Imagenes_tp4/9.jpg" >
 <img src="/Practico/Laboratorio4/Imagenes_tp4/10.jpg" >
 
+## 2- 
+Una vez completada la configuración de BGP y confirmado el correcto intercambio e instalación de rutas en las tablas de enrutamiento de los routers, se procedió a realizar pruebas de conectividad extremo a extremo entre los hosts de ambos Sistemas Autónomos (AS100 y AS200).
+
+Pruebas realizadas:
+- Desde AS100 hacia AS200:
+  - H0 (192.168.1.2) → H2 (192.168.2.2)
+  - H0 (192.168.1.2) → H3 (192.168.2.3)
+
+- Desde AS200 hacia AS100:
+  - H3 (192.168.2.3) → H0 (192.168.1.2)
+  - H3 (192.168.2.3) → H1 (192.168.1.3)
+  - 
+<img src="/Practico/Laboratorio4/Imagenes_tp4/14.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/15.jpg" >
+
+En todos los casos, las pruebas de ping fueron exitosas, demostrando que existe conectividad completa entre los dispositivos ubicados en diferentes sistemas autónomos. Esto valida que:
+- R0 (AS100) recibió correctamente las rutas BGP hacia las redes 192.168.2.0/24, permitiéndole alcanzar los hosts H2 y H3 en AS200.
+- R1 (AS200) recibió correctamente las rutas BGP hacia la red 192.168.1.0/24, lo que le permitió reenviar tráfico hacia los hosts H0 y H1 en AS100.
+  
+Las rutas aprendidas vía BGP fueron instaladas correctamente en las tablas de enrutamiento principales (RIB) de cada router, lo que habilitó el reenvío de paquetes ICMP entre todos los hosts involucrados.
+
+Esta comprobación confirma que BGP está funcionando correctamente como protocolo de enrutamiento externo, y que la red puede mantener conectividad entre hosts de distintos dominios
+  
