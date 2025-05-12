@@ -1,5 +1,5 @@
 # Laboratorio N°4
-## Ruteo Dinámico y Sistemas Autonomos.
+## Ruteo Dinámico y Sistemas Autónomos.
 
 ### Integrantes
 
@@ -36,18 +36,18 @@
 ### Parte 1.
 #### 1. 
 
-- A: 
+- A: Sistemas Autónomos (AS).
     - Los sistemas autónomos son grandes redes que forman el internet. Más específicamente, un sistema autónomo (AS) es una gran red, ó grupo de redes que tienen una política de ruteo unificada. \
     De esta manera, al enviar paquetes de datos a través del internet, estos saltan de AS a AS, hasta que alcanzan el AS que contiene su dirección IP de destino. Y los routers dentro de ese AS envía el paquete a la dirección IP.
     - Política de Ruteo:  Una política de ruteo de AS es una lista de direcciones IP del espacio que controla el AS, más una lista del resto de ASes a los que se conecta. Esta información es necesaria para el ruteo de los paquetes a las redes correctas. Los ASes anuncian este información al internet usando el _Border Gateway Protocol_(BGP).
 
-- B: 
+- B: Número de Sistema Autónomo (ASN).
     - A cada AS se le asigna un número oficial, ó "número de sistema autónomo" (_autonomous system number_(ASN)), similar a cómo cada empresa  de licencia con un único 'número oficial'.
     - Los número de AS ó ASNs, son números únicos de 16 bits entre "1" y "65534", ó de 32 bits entre "131072" and "4294967294". Se presentan en este formato: AS(número).
     - Los ASNs sólo son requeridos para comunicaciones externas con routers inter-redes.
     - Los AS deben cumplir ciertos requisitos previo a que se le asigne un ASN. Debe tener una política de ruteo específica, ser de cierto tamaño y tener más de una conexión a otros ASes.
 
-- C:
+- C: Ejemplos de ASNs de 3 empresas/universidades/organizaciones.
     - C.1: Google LLC.
         - Website: google.com
         - ASN: AS15169
@@ -66,7 +66,7 @@
         - Dominios Hosteados: 660
         - Tipo de ASN: Education.
 
-- D:
+- D: La conexión actual es:
     - Telecom Argentina S.A
     - ASN: AS7303
     - Dominios Hosteados: 27967
@@ -78,43 +78,76 @@
 
 2. 
 
-- A:
+- A: Border Gateway Protocol (BGP).
     - Los ASes anuncian su política de ruteo a otros ASes y routers mediante el _Border Gateway Protocol_(BGP). BGP es el protocolo de ruteo de paquetes de datos entre ASes. Sin esta información de ruteo, los paquetes de información se perderían, ó tomarían demasiado tiempo para llegar a su destino. \
     Cada AS usa BGP para anunciar de qué dirección de IP son responsables, y a qué otros AS están conectados. Los routers BGP toman esta información de los ASes y la pone en bases de datos llamadas _tablas de ruteo_ para determinar el  camino más rápido de AS a AS. Cuando los paquetes llegan, los routers BGP refieren a sus tablas de ruteo, para determinar a qué AS debe ir el paquete.
 
-- B: El BGP funciona mediante 3 procedimientos funcionales.
+- B: Explicación del BGP
     
-    - B.1: Adquisición de Vecinos.
+    - B.1 Procedimientos Funcionales Del BGP
+    - B.1.1: Adquisición de Vecinos.
         - Este proceso ocurre cuando un router BGP intenta establecer una conexión con otro router BGP (llamado peer o vecino).
         - BGP utiliza TCP (puerto 179) para establecer la conexión.
         - Una vez establecida la conexión TCP, se intercambian mensajes OPEN, sí ambos lados aceptan los parámetros intercambiados (como ASN, BGP ID, capacidades), se establece la sesión BGP.
     
-    - B.2: Detección de vecino alcanzable _(Neighbor Liveness Detection)_
+    - B.1.2: Detección de vecino alcanzable _(Neighbor Liveness Detection)_
         - Después de establecer la sesión, se envían mensajes KEEPALIVE periódicamente para mantener la conexión activa.
         - Si no se recibe un KEEPALIVE o cualquier otro mensaje en un intervalo (Hold Time), se considera que el vecino está inalcanzable, y se cierra la sesión.
     
-    - B.3: Detección de red alcanzable _(Reachability Detection)_
+    - B.1.3: Detección de red alcanzable _(Reachability Detection)_
         - Los routers BGP intercambian mensajes UPDATE para anunciar o retirar rutas (prefijos de red).
         - Estos anuncios contienen atributos como el AS Path, Next Hop, MED, etc.
         - La tabla BGP se actualiza con la mejor ruta según estos atributos y políticas  de enrutamiento.
         - Cuando una red deja de estar disponible, se envía una actualización con la ruta retirada (withdrawal).
 
-    - B.4: Tipos de Mensajes en BGP:
+    - B.2: Tipos de Mensajes en BGP:
         - OPEN: Iniciar una conexión BGP, intercambiar parámetros básicos.
         - KEEPALIVE: Confirmar que la conexión sigue activa (se envía periódicamente).
         - UPDATE: Anunciar nuevas rutas o retirar rutas existentes.
         - NOTIFICATION: Señalar errores y cerrar la conexión.
 
-    - B.5: Formato de Paquetes en BGP
+    - B.3: Formato de Paquetes en BGP
         - Cada mensaje BGP tiene una cabecera común de 19 bytes.
         - Marker: 16 bytes, usado para detección de errores (típicamente todos 1s).
         - Lenght: 2 bytes, longitud total del mensaje (mínimo 19 bytes, máximo 4096).
         - Type: 1 byte, tipo de mensaje (OPEN, UPDATE, etc)
   
-- C:
-- D:
-- E:
-- F:
+- C: iBGP y eBGP.
+    - C.1: Diferencia entre BGP externo _(eBGP)_ y BGP interno _(iBGP)_
+    - C.1.1: BGP Externo _(eBGP)_
+        - eBGP: Es el protocolo que se usa para intercambiar información de enrutamiento entre diferentes AS. 
+        - Los routers que están en diferentes AS utilizan eBGP para comunicar rutas. 
+            - Por ejemplo (basado en la imagen), R1 (AS1) y R2 (AS2) se comunican mediante eBGP.
+
+    - C.1.2: BGP Interno _(iBGP)_
+        - iBGP: Es el protocolo que se usa para intercambiar información de enrutamiento dentro de un mismo AS. Los routers que pertenecen al mismo AS utilizan iBGP. 
+            - En el ejemplo de la imagen, R2 y R3 (ambos en AS2) usan iBGP para compartir información de rutas aprendidas por eBGP.
+
+    - C.2: Ejemplo.
+        ![alt text](/Practico/Laboratorio4/Imagenes_tp4/Punto_2_c.png)
+
+        - Un AS se considera de tránsito sí este permite que otros AS usen su red para pasar hacia otros AS. En este caso, AS2, es un AS de tránsito
+
+- D: Gráfico sobre la conexión de los AS de mí conexión actual (AS7303 - Telecom Argentina S.A.)
+
+    ![alt text](/Practico/Laboratorio4/Imagenes_tp4/AS7303_grafico.png)
+
+    - Se puede ver que AS7303 mantiene 4 conexiones eBGP, con AS3356, AS6762 y AS3257
+    
+    - Y a uno o dos grados de separación, están los AS, AS6939, AS6453, y AS5511, entre otros.
+
+- E: Conexiones desde eBGP desde un AS diferente. (En este caso, Claro AR 5G)
+    - AS11664 - Techtel LMDS Comunicaciones Interactivas S.A.
+    - Sus conexiones eBGP son los AS, AS6762, AS1299, AS3257
+    - Y uno ó dos grados de separación se encuentran AS174, AS6939, AS3356, entre otros.
+    - Se puede observar que comparten ASs
+
+    ![alt text](/Practico/Laboratorio4/Imagenes_tp4/AS11664_grafico.png)
+
+- F: Podría servir de ejemplo el caso del [Hijacking de BGP por parte de Telekom Malaysia.](https://www.bgpmon.net/massive-route-leak-cause-internet-slowdown/)
+    - El 12 de junio de 2015, Telekom Malaysia (AS4788) anunció por error, miles de prefijos IP que no le pertenecían, redirigiendo tráfico que debía ir a otros destinos. \
+    Y muchos proveedores de Internet aceptaron estos anuncios sin verificar su legitimidad (lo cual es una debilidad inherente al diseño de BGP).
+    - Esto provocó una significativa pérdida de paquetes, y el internet disminuyó su velocidad en todas partes del mundo. 
 
 # Parte II - Simulaciones y análisis
 Se implementó una topología de red compuesta por dos Sistemas Autónomos (AS100 y AS200) utilizando Cisco Packet Tracer, con el propósito de configurar y analizar el protocolo BGP (Border Gateway Protocol) para permitir el intercambio de rutas entre ambos AS. La configuración busca simular un escenario de interconexión entre redes independientes, utilizando BGP como protocolo de enrutamiento externo (eBGP).
