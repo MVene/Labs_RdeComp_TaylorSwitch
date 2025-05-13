@@ -266,5 +266,72 @@ En todos los casos, las pruebas de ping fueron exitosas, demostrando que existe 
   
 Las rutas aprendidas vía BGP fueron instaladas correctamente en las tablas de enrutamiento principales (RIB) de cada router, lo que habilitó el reenvío de paquetes ICMP entre todos los hosts involucrados.
 
-Esta comprobación confirma que BGP está funcionando correctamente como protocolo de enrutamiento externo, y que la red puede mantener conectividad entre hosts de distintos dominios
+Esta comprobación confirma que BGP está funcionando correctamente como protocolo de enrutamiento externo, y que la red puede mantener conectividad entre hosts de distintos dominios.
+
+## 3-
+**Simular tráfico en modo Simulation**
+
+Se utilizó la herramienta de simulación de Packet Tracer para enviar un paquete ICMP desde el host PC0 (perteneciente al AS100) hacia el host PC2 (en AS200). En la simulación, se observaron los pasos intermedios del paquete:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/16.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/17.jpg" >
+
+- El ping fue enviado desde PC0 y atravesó Switch0, Router0, Router1 y Switch1 hasta llegar a PC2.
+
+- Se registró también el retorno del paquete ICMP (respuesta del ping), volviendo desde PC2 a PC0 por el mismo camino.
+  
+- Se observaron múltiples paquetes del protocolo BGP intercambiados entre Router0 y Router1. Analizando los eventos capturados en el modo Simulation, se identificaron mensajes del tipo KEEPALIVE, que son enviados periódicamente para mantener la sesión BGP activa. Esto confirma que la conexión BGP entre ambos routers está establecida correctamente.
+
+Esto confirma que el tráfico entre hosts de diferentes AS funciona correctamente y que las rutas BGP están activas.
+
+Se visualizaron también mensajes STP de los switches, lo cual es normal en la simulación de red.
+
+**Se apaga el Router1**
+
+Para simular una falla en la red, se procedió a apagar el router Router1, que actúa como frontera entre los Sistemas Autónomos AS100 y AS200. Esto se realizó desde la pestaña Physical, utilizando el botón de apagado.
+Luego de apagar el router, se ejecutó un ping desde PC0 (AS100) hacia PC2 (AS200), observando el tráfico en modo Simulation. El resultado fue el esperado: el tráfico se interrumpió y el paquete ICMP no alcanzó su destino.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/18.jpg" >
+
+Para verificar cómo BGP maneja la pérdida de conectividad con un vecino externo. Al ejecutar el comando `show ip bgp` en Router0 (AS 100), se observó que ya no se recibían rutas del vecino BGP, y solo permanecía la red local 192.168.1.0/24.
+Asimismo, la tabla de ruteo (`show ip route`) reflejaba únicamente rutas directamente conectadas, sin rutas aprendidas vía BGP.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/19.png" >
+
+**Se enciende el Router1**
+
+Una vez encendido Router1 (AS 200), se verificó el restablecimiento de la sesión BGP con Router0 (AS 100). A los pocos segundos, Router0 recibió la red 192.168.2.0/24 mediante BGP.
+El comando  `show ip bgp` confirmó la recepción de esta red con origen en AS 200, y el comando `show ip route` mostró correctamente la ruta aprendida por BGP, etiquetada con la letra B, con un next hop de 10.0.0.2.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/20.jpg" >
+
+## 4-
+- Se activa IPv6 en los routers:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/21.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/22.jpg" >
+
+
+- Se asigna IPv6 en interfaces:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/23.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/24.jpg" >
+
+Se intentó habilitar conectividad dual-stack entre los sistemas autónomos AS100 y AS200 mediante la incorporación de configuración IPv6 en la red. Aunque fue posible asignar direcciones IPv6 a interfaces y hosts, se identificó una limitación importante en Cisco Packet Tracer relacionada con la implementación de BGP para el enrutamiento IPv6.
+Limitación de BGP con IPv6 en Packet Tracer: Al configurar la vecindad BGP utilizando direcciones IPv6 (mediante el comando  `neighbor <ipv6-address> remote-as <asn>` dentro del proceso router bgp <asn>), Packet Tracer genera el error `% Invalid input detected`. Esto sugiere que la versión utilizada de Packet Tracer no soporta completamente el establecimiento de sesiones BGP sobre IPv6 de forma directa, o bien requiere un enfoque alternativo —como el uso de address families— que también podría estar restringido en esta plataforma.
+En consecuencia, no fue posible establecer el intercambio dinámico de rutas IPv6 entre los routers R0 y R1 utilizando BGP dentro de esta simulación.
+
+## 5-
+| **Equipo** | **Interfaz**     | **IP de red** | **IPv4**        | **Máscara**     | **IPv6**              | **Comentarios**                                        |
+|------------|------------------|---------------|------------------|------------------|------------------------|---------------------------------------------------------|
+| PC0        | FastEthernet0    | 192.168.1.0   | 192.168.1.2      | 255.255.255.0    | 2001:DB8:0:A::2/64       | Host en AS100                                           |
+| PC1        | FastEthernet0    | 192.168.1.0   | 192.168.1.3      | 255.255.255.0    | 2001:DB8:0:A::3/64       | Host en AS100                                           |
+| Switch0    | -                | -             | -                | -                | -                      | Switch de capa 2 en AS100                               |
+| Router0    | FastEthernet0/1  | 192.168.1.0   | 192.168.1.1      | 255.255.255.0    | 2001:DB8:1::1/64       | Gateway para AS100                                      |
+| Router0    | FastEthernet0/0      | 10.0.0.0      | 10.0.0.1         | 255.255.255.0    | 2001:DB8:10::1/64      | Enlace eBGP hacia Router1                        |
+| Router1    |  FastEthernet0/0       | 10.0.0.0      | 10.0.0.2         | 255.255.255.0    | 2001:DB8:10::2/64      | Enlace eBGP hacia Router0                        |
+| Router1    | FastEthernet0/1  | 192.168.2.0   | 192.168.2.1      | 255.255.255.0    | 2001:DB8:2::1/64       | Gateway para AS200                                      |
+| Switch1    | -                | -             | -                | -                | -                      | Switch de capa 2 en AS200                               |
+| PC2        | FastEthernet0    | 192.168.2.0   | 192.168.2.2      | 255.255.255.0    | 2001:DB8:0:B::2       | Host en AS200                                           |
+| PC3        | FastEthernet0    | 192.168.2.0   | 192.168.2.3      | 255.255.255.0    | 2001:DB8:0:B::3      | Host en AS200   
   
