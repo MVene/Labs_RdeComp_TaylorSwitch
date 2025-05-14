@@ -335,3 +335,89 @@ En consecuencia, no fue posible establecer el intercambio dinámico de rutas IPv
 | PC2        | FastEthernet0    | 192.168.2.0   | 192.168.2.2      | 255.255.255.0    | 2001:DB8:0:B::2       | Host en AS200                                           |
 | PC3        | FastEthernet0    | 192.168.2.0   | 192.168.2.3      | 255.255.255.0    | 2001:DB8:0:B::3      | Host en AS200   
   
+## 6-
+Se agregó:
+
+- Un nuevo router Cisco 1841 (Router2) al AS100.
+- Un switch de capa 2 (Switch2).
+- Un host adicional (PC4) conectado al nuevo switch.
+
+El nuevo router fue interconectado con Router0 mediante el módulo HWIC-4ESW instalado en Router0 (usando la interfaz FastEthernet0/1/0)
+Se asignó la red 192.168.4.0/24 para el enlace entre Router0 y Router2, y la red 192.168.5.0/24 para la red donde se ubica PC4.
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/29.jpg" >
+
+Configuración de Router0:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/31.jpg" >
+
+Configuración de Router2:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/32.jpg" >
+
+Para que Router0 conozca la red detrás de Router2:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/33.jpg" >
+
+Verificación de conectividad:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/34.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/30.jpg" >
+
+## 7-
+Configuración de Router0:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/36.jpg" >
+
+Configuración de Router2:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/35.jpg" >
+
+Se utilizó el comando `show ip ospf neighbor` para confirmar el establecimiento de vecindad entre Router0 y Router2. También se verificó la propagación de rutas utilizando `show ip route`
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/37.jpg" >
+<img src="/Practico/Laboratorio4/Imagenes_tp4/38.jpg" >
+
+Se comprobó que:
+- Router0 aprende la red 192.168.5.0/24 (donde está PC4) vía OSPF.
+- Router2 aprende la red 192.168.1.0/24 (donde están PC0 y PC1).
+  
+Se realizaron pruebas de ping con éxito:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/39.jpg" >
+
+## 8-
+eBGP  se encarga del intercambio de rutas entre sistemas autónomos (AS100 y AS200). OSPF maneja el enrutamiento dentro de AS100. Para que BGP pueda anunciar las redes internas aprendidas por OSPF (como 192.168.5.0/24 desde Router2), es necesario redistribuir OSPF en BGP en Router0, que es el borde entre los AS.
+
+La redistribución se configuró con el comando `redistribute ospf 1` dentro del proceso BGP de Router0:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/40.jpg" >
+
+En Router1 perteneciente a AS200, al ejecutar show ip route, se observan entradas BGP hacia redes del AS100. 
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/41.jpg" >
+
+Esto indica que AS200 está recibiendo la red de PC4  mediante BGP.
+
+En Router0:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/42.jpg" >
+
+Esta salida de comandos en Router0 confirma que la redistribución entre OSPF y BGP está funcionando correctamente, y que la conectividad del host PC4 (192.168.5.2) con los demás hosts de AS100 y AS200 es viable.
+
+## 9-
+Finalmente se verifica que el nuevo host agregado a AS100 (PC4 ) tenga comunicación completa con el resto de los hosts de la red:
+
+- AS100: PC0, PC1:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/39.jpg" >
+
+- AS200: PC2, PC3:
+
+<img src="/Practico/Laboratorio4/Imagenes_tp4/43.jpg" >
+
+Esto permite comprobar que la configuración de OSPF, BGP y la redistribución entre protocolos funcionan correctamente.
+La conectividad de PC4 con hosts de ambos AS indica que:
+- El enrutamiento interno en AS100 mediante OSPF es correcto.
+- El enrutamiento externo entre AS100 y AS200 mediante BGP está funcionando.
+- La redistribución OSPF ↔ BGP en Router0 permite el intercambio completo de rutas entre protocolos.
