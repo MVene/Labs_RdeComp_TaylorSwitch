@@ -124,13 +124,13 @@
             - En el ejemplo de la imagen, R2 y R3 (ambos en AS2) usan iBGP para compartir información de rutas aprendidas por eBGP.
 
     - C.2: Ejemplo.
-        ![alt text](/Practico/Laboratorio4/Imagenes_tp4/Punto_2_c.png)
+        ![alt text](Imagenes_tp4/Punto_2_c.png)
 
         - Un AS se considera de tránsito sí este permite que otros AS usen su red para pasar hacia otros AS. En este caso, AS2, es un AS de tránsito
 
 - D: Gráfico sobre la conexión de los AS de mí conexión actual (AS7303 - Telecom Argentina S.A.)
 
-    ![alt text](/Practico/Laboratorio4/Imagenes_tp4/AS7303_grafico.png)
+    ![alt text](Imagenes_tp4/AS7303_grafico.png)
 
     - Se puede ver que AS7303 mantiene 4 conexiones eBGP, con AS3356, AS6762 y AS3257
     
@@ -142,7 +142,7 @@
     - Y uno ó dos grados de separación se encuentran AS174, AS6939, AS3356, entre otros.
     - Se puede observar que comparten ASs
 
-    ![alt text](/Practico/Laboratorio4/Imagenes_tp4/AS11664_grafico.png)
+    ![alt text](Imagenes_tp4/AS11664_grafico.png)
 
 - F: Podría servir de ejemplo el caso del [Hijacking de BGP por parte de Telekom Malaysia.](https://www.bgpmon.net/massive-route-leak-cause-internet-slowdown/)
     - El 12 de junio de 2015, Telekom Malaysia (AS4788) anunció por error, miles de prefijos IP que no le pertenecían, redirigiendo tráfico que debía ir a otros destinos. \
@@ -153,7 +153,7 @@
 Se implementó una topología de red compuesta por dos Sistemas Autónomos (AS100 y AS200) utilizando Cisco Packet Tracer, con el propósito de configurar y analizar el protocolo BGP (Border Gateway Protocol) para permitir el intercambio de rutas entre ambos AS. La configuración busca simular un escenario de interconexión entre redes independientes, utilizando BGP como protocolo de enrutamiento externo (eBGP).
 
 <p align="center">
-<img src="/Practico/Laboratorio4/Imagenes_tp4/11.jpg" ><br>
+<img src="Imagenes_tp4/11.jpg" ><br>
  <span><i>Imagen 1.Topologia de red</i></span>
 </p>
 
@@ -171,17 +171,17 @@ show ip bgp summary
 - Qué número de AS tiene el router.
 - Cuánto tiempo lleva activa cada sesión BGP.
   
-<img src="/Practico/Laboratorio4/Imagenes_tp4/1.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/2.jpg" >
+<img src="Imagenes_tp4/1.jpg" >
+<img src="Imagenes_tp4/2.jpg" >
 
 *Fragmento que evidencia BGP:*
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/12.jpg" >
+<img src="Imagenes_tp4/12.jpg" >
 
 - Router ID: 192.168.1.1 → Identificador único de BGP (generalmente se toma la IP más alta de una interfaz activa si no se configura manualmente).
 - Local AS: 100 → Este router pertenece al Sistema Autónomo 100.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/13.jpg" >
+<img src="Imagenes_tp4/13.jpg" >
 
 - Router ID: 192.168.2.1 → Identificador único de BGP 
 - Local AS: 200 → Este router pertenece al Sistema Autónomo 200.
@@ -191,7 +191,7 @@ show ip bgp
 ```
 Se utiliza para visualizar la tabla BGP (Border Gateway Protocol). Esta tabla contiene todas las rutas BGP que el router ha aprendido de sus vecinos, así como las rutas locales que está anunciando. Es una herramienta fundamental para diagnosticar y comprender cómo está funcionando el ruteo BGP en la red.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/5.jpg" >
+<img src="Imagenes_tp4/5.jpg" >
 
 - 192.168.1.0/24
   - Es red local del Router0.
@@ -205,7 +205,7 @@ Se utiliza para visualizar la tabla BGP (Border Gateway Protocol). Esta tabla co
   - El AS 200 aparece en el camino → muestra que esta red pertenece a otro AS.
   - El origen es i → indica que fue originada en ese router con IGP (probablemente por network).
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/6.jpg" >
+<img src="Imagenes_tp4/6.jpg" >
 
 ```bash
 show ip route bgp
@@ -218,7 +218,7 @@ Muestra:
 - Interfaz de salida.
 - Tiempo desde que la ruta fue aprendida.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/7.jpg" >
+<img src="Imagenes_tp4/7.jpg" >
 
 - El router aprendió la red 192.168.2.0/24 (perteneciente al otro AS).
 - El tráfico hacia esa red se envía a través del next-hop 10.0.0.2.
@@ -227,23 +227,23 @@ Muestra:
   - 0: métrica (MED, Multi-Exit Discriminator).
 - El tiempo muestra cuánto hace que la ruta fue aprendida.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/8.jpg" >
+<img src="Imagenes_tp4/8.jpg" >
 
 ```bash
 show running-config | section router bgp
 ```
 Muestra la configuración activa del router relacionada con BGP. Incluye el número de sistema autónomo (ASN) local, los vecinos BGP configurados, y las redes que están siendo anunciadas.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/3.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/4.jpg" >
+<img src="Imagenes_tp4/3.jpg" >
+<img src="Imagenes_tp4/4.jpg" >
 
 ```bash
 show ip protocols
 ```
 Ofrece una visión general de los protocolos de enrutamiento activos en el router. En el contexto de BGP, muestra el ASN local, los vecinos configurados, los timers y las redes que están siendo anunciadas por el protocolo.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/9.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/10.jpg" >
+<img src="Imagenes_tp4/9.jpg" >
+<img src="Imagenes_tp4/10.jpg" >
 
 ## 2- 
 Una vez completada la configuración de BGP y confirmado el correcto intercambio e instalación de rutas en las tablas de enrutamiento de los routers, se procedió a realizar pruebas de conectividad extremo a extremo entre los hosts de ambos Sistemas Autónomos (AS100 y AS200).
@@ -257,8 +257,8 @@ Pruebas realizadas:
   - H3 (192.168.2.3) → H0 (192.168.1.2)
   - H3 (192.168.2.3) → H1 (192.168.1.3)
   - 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/14.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/15.jpg" >
+<img src="Imagenes_tp4/14.jpg" >
+<img src="Imagenes_tp4/15.jpg" >
 
 En todos los casos, las pruebas de ping fueron exitosas, demostrando que existe conectividad completa entre los dispositivos ubicados en diferentes sistemas autónomos. Esto valida que:
 - R0 (AS100) recibió correctamente las rutas BGP hacia las redes 192.168.2.0/24, permitiéndole alcanzar los hosts H2 y H3 en AS200.
@@ -273,8 +273,8 @@ Esta comprobación confirma que BGP está funcionando correctamente como protoco
 
 Se utilizó la herramienta de simulación de Packet Tracer para enviar un paquete ICMP desde el host PC0 (perteneciente al AS100) hacia el host PC2 (en AS200). En la simulación, se observaron los pasos intermedios del paquete:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/16.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/17.jpg" >
+<img src="Imagenes_tp4/16.jpg" >
+<img src="Imagenes_tp4/17.jpg" >
 
 - El ping fue enviado desde PC0 y atravesó Switch0, Router0, Router1 y Switch1 hasta llegar a PC2.
 
@@ -291,31 +291,31 @@ Se visualizaron también mensajes STP de los switches, lo cual es normal en la s
 Para simular una falla en la red, se procedió a apagar el router Router1, que actúa como frontera entre los Sistemas Autónomos AS100 y AS200. Esto se realizó desde la pestaña Physical, utilizando el botón de apagado.
 Luego de apagar el router, se ejecutó un ping desde PC0 (AS100) hacia PC2 (AS200), observando el tráfico en modo Simulation. El resultado fue el esperado: el tráfico se interrumpió y el paquete ICMP no alcanzó su destino.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/18.jpg" >
+<img src="Imagenes_tp4/18.jpg" >
 
 Para verificar cómo BGP maneja la pérdida de conectividad con un vecino externo. Al ejecutar el comando `show ip bgp` en Router0 (AS 100), se observó que ya no se recibían rutas del vecino BGP, y solo permanecía la red local 192.168.1.0/24.
 Asimismo, la tabla de ruteo (`show ip route`) reflejaba únicamente rutas directamente conectadas, sin rutas aprendidas vía BGP.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/19.png" >
+<img src="Imagenes_tp4/19.png" >
 
 **Se enciende el Router1**
 
 Una vez encendido Router1 (AS 200), se verificó el restablecimiento de la sesión BGP con Router0 (AS 100). A los pocos segundos, Router0 recibió la red 192.168.2.0/24 mediante BGP.
 El comando  `show ip bgp` confirmó la recepción de esta red con origen en AS 200, y el comando `show ip route` mostró correctamente la ruta aprendida por BGP, etiquetada con la letra B, con un next hop de 10.0.0.2.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/20.jpg" >
+<img src="Imagenes_tp4/20.jpg" >
 
 ## 4-
 - Se activa IPv6 en los routers:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/21.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/22.jpg" >
+<img src="Imagenes_tp4/21.jpg" >
+<img src="Imagenes_tp4/22.jpg" >
 
 
 - Se asigna IPv6 en interfaces:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/23.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/24.jpg" >
+<img src="Imagenes_tp4/23.jpg" >
+<img src="Imagenes_tp4/24.jpg" >
 
 Se intentó habilitar conectividad dual-stack entre los sistemas autónomos AS100 y AS200 mediante la incorporación de configuración IPv6 en la red. Aunque fue posible asignar direcciones IPv6 a interfaces y hosts, se identificó una limitación importante en Cisco Packet Tracer relacionada con la implementación de BGP para el enrutamiento IPv6.
 Limitación de BGP con IPv6 en Packet Tracer: Al configurar la vecindad BGP utilizando direcciones IPv6 (mediante el comando  `neighbor <ipv6-address> remote-as <asn>` dentro del proceso router bgp <asn>), Packet Tracer genera el error `% Invalid input detected`. Esto sugiere que la versión utilizada de Packet Tracer no soporta completamente el establecimiento de sesiones BGP sobre IPv6 de forma directa, o bien requiere un enfoque alternativo —como el uso de address families— que también podría estar restringido en esta plataforma.
@@ -345,38 +345,38 @@ Se agregó:
 El nuevo router fue interconectado con Router0 mediante el módulo HWIC-4ESW instalado en Router0 (usando la interfaz FastEthernet0/1/0)
 Se asignó la red 192.168.4.0/24 para el enlace entre Router0 y Router2, y la red 192.168.5.0/24 para la red donde se ubica PC4.
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/29.jpg" >
+<img src="Imagenes_tp4/29.jpg" >
 
 Configuración de Router0:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/31.jpg" >
+<img src="Imagenes_tp4/31.jpg" >
 
 Configuración de Router2:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/32.jpg" >
+<img src="Imagenes_tp4/32.jpg" >
 
 Para que Router0 conozca la red detrás de Router2:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/33.jpg" >
+<img src="Imagenes_tp4/33.jpg" >
 
 Verificación de conectividad:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/34.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/30.jpg" >
+<img src="Imagenes_tp4/34.jpg" >
+<img src="Imagenes_tp4/30.jpg" >
 
 ## 7-
 Configuración de Router0:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/36.jpg" >
+<img src="Imagenes_tp4/36.jpg" >
 
 Configuración de Router2:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/35.jpg" >
+<img src="Imagenes_tp4/35.jpg" >
 
 Se utilizó el comando `show ip ospf neighbor` para confirmar el establecimiento de vecindad entre Router0 y Router2. También se verificó la propagación de rutas utilizando `show ip route`
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/37.jpg" >
-<img src="/Practico/Laboratorio4/Imagenes_tp4/38.jpg" >
+<img src="Imagenes_tp4/37.jpg" >
+<img src="Imagenes_tp4/38.jpg" >
 
 Se comprobó que:
 - Router0 aprende la red 192.168.5.0/24 (donde está PC4) vía OSPF.
@@ -384,24 +384,24 @@ Se comprobó que:
   
 Se realizaron pruebas de ping con éxito:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/39.jpg" >
+<img src="Imagenes_tp4/39.jpg" >
 
 ## 8-
 eBGP  se encarga del intercambio de rutas entre sistemas autónomos (AS100 y AS200). OSPF maneja el enrutamiento dentro de AS100. Para que BGP pueda anunciar las redes internas aprendidas por OSPF (como 192.168.5.0/24 desde Router2), es necesario redistribuir OSPF en BGP en Router0, que es el borde entre los AS.
 
 La redistribución se configuró con el comando `redistribute ospf 1` dentro del proceso BGP de Router0:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/40.jpg" >
+<img src="Imagenes_tp4/40.jpg" >
 
 En Router1 perteneciente a AS200, al ejecutar show ip route, se observan entradas BGP hacia redes del AS100. 
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/41.jpg" >
+<img src="Imagenes_tp4/41.jpg" >
 
 Esto indica que AS200 está recibiendo la red de PC4  mediante BGP.
 
 En Router0:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/42.jpg" >
+<img src="Imagenes_tp4/42.jpg" >
 
 Esta salida de comandos en Router0 confirma que la redistribución entre OSPF y BGP está funcionando correctamente, y que la conectividad del host PC4 (192.168.5.2) con los demás hosts de AS100 y AS200 es viable.
 
@@ -410,11 +410,11 @@ Finalmente se verifica que el nuevo host agregado a AS100 (PC4 ) tenga comunicac
 
 - AS100: PC0, PC1:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/39.jpg" >
+<img src="Imagenes_tp4/39.jpg" >
 
 - AS200: PC2, PC3:
 
-<img src="/Practico/Laboratorio4/Imagenes_tp4/43.jpg" >
+<img src="Imagenes_tp4/43.jpg" >
 
 Esto permite comprobar que la configuración de OSPF, BGP y la redistribución entre protocolos funcionan correctamente.
 La conectividad de PC4 con hosts de ambos AS indica que:
