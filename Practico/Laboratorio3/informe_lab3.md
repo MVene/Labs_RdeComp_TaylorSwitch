@@ -131,7 +131,7 @@ Se utilizó `show ip ospf neighbor` para verificar el establecimiento de relacio
 
  <img src="/Practico/Laboratorio3/Imagenes_tp3/3.jpg" >
  <img src="/Practico/Laboratorio3/Imagenes_tp3/4.jpg" >
- <img src="/Practico/Laboratorio3/Imagenes_tp3/5.jpg" >
+ <img src="Imagenes_tp3/5.jpg" >
  <img src="/Practico/Laboratorio3/Imagenes_tp3/6.jpg" >
  <img src="/Practico/Laboratorio3/Imagenes_tp3/7.jpg" >
  
@@ -158,11 +158,11 @@ Se observó especialmente el intercambio de paquetes Hello, fundamentales para e
 
 Además, se visualizaron los paquetes Link-State Update (LSU), que contienen información sobre los cambios en el estado de los enlaces dentro de la red. Esta información es crítica para mantener actualizadas las bases de datos de estado de enlace (LSDB, Link-State Database) en todos los routers del área OSPF. Cada LSU puede incluir múltiples Link-State Advertisements (LSA), los cuales describen el estado y las conexiones de un router.
 
-<img src="/Practico/Laboratorio3/Imagenes_tp3/18.jpg" >
+<img src="./Imagenes_tp3/18.jpg" >
 
 Para asegurar una comunicación confiable, también se observó el envío de paquetes Link-State Acknowledgment (LSAck). Estos se utilizan para confirmar la recepción correcta de los LSUs, ya que OSPF, aunque es un protocolo confiable en cuanto a consistencia de base de datos, se basa en IP, un protocolo no confiable. Por ello, el acuse de recibo garantiza que los LSAs no se pierdan durante la transmisión.
 
-<img src="/Practico/Laboratorio3/Imagenes_tp3/18.jpg" >
+<img src="Imagenes_tp3/18.jpg" >
 
 Gracias al intercambio de estos mensajes —Hello, LSU y LSAck—, los routers pueden construir una LSDB coherente y sincronizada en toda el área OSPF. A partir de esta base de datos, cada router ejecuta el algoritmo de Dijkstra (también conocido como algoritmo SPF, Shortest Path First) para calcular las rutas óptimas hacia cada destino en la red.
 
