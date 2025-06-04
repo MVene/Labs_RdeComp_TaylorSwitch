@@ -1,1 +1,9 @@
+# IDE
 .vscode
+
+# Python
+.venv
+.python-version
+
+# Other
+log.*
