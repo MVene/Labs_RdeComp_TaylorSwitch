@@ -4,6 +4,7 @@
 # Python
 .venv
 .python-version
+.ruff_cache
 
 # Other
 log.*
