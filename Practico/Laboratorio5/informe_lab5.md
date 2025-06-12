@@ -62,7 +62,9 @@ Para verificar el correcto tránsito de los paquetes, se utilizó Wireshark sobr
 ```bash
 tcp.port == 12345
 ```
-<img src="/Practico/Laboratorio5/Imagenes_tp5/1.jpg" >
+
+<img src="Imagenes_tp5/1.jpg" >
+
 y se capturó la comunicación entre las direcciones IP 192.168.100.26 (cliente) y 192.168.100.24 (servidor).
 
 En la Figura se muestra un paquete TCP seleccionado. En la parte inferior del panel, se observa claramente el contenido del paquete:
@@ -74,7 +76,7 @@ Este contenido aparece en la sección "Data" del paquete, lo cual indica que la 
 
 Confirmación de recepción por parte del servidor:
 
-<img src="/Practico/Laboratorio5/Imagenes_tp5/2.jpg" >
+<img src="Imagenes_tp5/2.jpg" >
 
 Luego de recibir el paquete TCP con el contenido "Taylor_Switch_0", el servidor responde con un segmento TCP ACK dirigido al cliente.
 
@@ -89,7 +91,7 @@ Este comportamiento es consistente con el protocolo TCP, donde cada segmento de 
 
 Carga útil del paquete TCP con el mensaje Taylor_Switch_0:
 
-<img src="/Practico/Laboratorio5/Imagenes_tp5/3.jpg" >
+<img src="Imagenes_tp5/3.jpg" >
 
 Se muestra en detalle la carga útil del paquete TCP, destacando los bytes transmitidos como parte del mensaje.
 
@@ -179,8 +181,8 @@ La herramienta Wireshark fue utilizada para capturar los paquetes. Se aplicó el
 udp.port == 1234
  ```
 
-<img src="/Practico/Laboratorio5/Imagenes_tp5/4.jpg" >
-<img src="/Practico/Laboratorio5/Imagenes_tp5/5.jpg" >
+<img src="Imagenes_tp5/4.jpg" >
+<img src="Imagenes_tp5/5.jpg" >
 
 Se observó tráfico proveniente del cliente (192.168.100.26) hacia el servidor (192.168.100.24) a través del puerto 1234.
 
@@ -222,6 +224,61 @@ RECEIVED Taylor_Switch_58 at 1718210220.373 - Protocol: udp
      Latencia máxima: 0.206 ms
      Jitter: 0.002 ms
  ``` 
+
+## 3. Comparación de Paquetes UDP y TCP Capturados
+
+### Paquete TCP capturado
+
+En la sección "Transmission Control Protocol, Src Port: 50058, Dst Port: 12345, Seq: 1, Ack: 1, Len: 15" y el detalle que se despliega, observamos los siguientes campos clave en el encabezado TCP:
+
+- **Source Port (Puerto Origen) y Destination Port (Puerto Destino)**: Identifican los puntos finales de la comunicación. En la captura, son 50058 y 12345 respectivamente.
+- **Sequence Number (Número de Secuencia)**: Fundamental para ordenar los segmentos de datos y manejar la retransmisión. Indica el número de secuencia del primer byte de datos del segmento o, si no hay datos, del primer byte que se esperaría enviar. En la captura se observa Seq: 1 (relative sequence number).
+- **Next Sequence Number (relative sequence number)**: 16 (Indica que el siguiente byte esperado por el receptor si no hubiera retransmisiones comenzaría en el 16, ya que se enviaron 15 bytes de datos).
+- **Acknowledgement Number**: Utilizado por el receptor para confirmar que ha recibido los datos hasta un cierto byte y que espera el siguiente. En la captura se observa Ack: 1 (relative ack number).
+- **Flags (Banderas)**: Un conjunto de bits de control que gestionan el estado y el flujo de la conexión TCP. En la captura se observan Flags: PSH, ACK, indicando que es un segmento con datos que deben ser entregados a la aplicación de inmediato (PSH) y que contiene un acuse de recibo (ACK). Otros flags importantes incluyen SYN (establecimiento), FIN (finalización), RST (reset).
+- **Window Size (Tamaño de Ventana)**: Utilizado para el control de flujo.
+- **Checksum:** Para la verificación de errores del encabezado y los datos.
+
+
+### Paquete UDP capturado
+
+En contraste, el encabezado del protocolo UDP (User Datagram Protocol) es notablemente más simple. Los campos principales visibles en la captura son:
+
+- **Source Port (Puerto Origen) y Destination Port (Puerto Destino)**: Identifican los procesos de origen y destino. En la captura son 52085 y 1234 respectivamente.
+- **Length (Longitud)**: Indica la longitud total del datagrama UDP, incluyendo el encabezado UDP (8 bytes) y los datos. En la captura es 24 bytes.
+- **Checksum**: Un campo opcional (pero recomendado) para la verificación de errores del encabezado y los datos del datagrama. En la captura es 0xbffa (unverified).
+- **UDP payload (16 bytes)**: Confirma que el datagrama UDP contiene 16 bytes de datos.
+
+La principal diferencia al comparar ambos encabezados radica en la cantidad y complejidad de la información que transportan.
+
+El encabezado TCP es mucho más grande y complejo debido a la inclusión de campos que garantizan la confiabilidad, el control de flujo, el control de congestión y el establecimiento/terminación de la conexión. Estos campos son la base para características como la retransmisión de paquetes perdidos, el orden de entrega y la prevención de la saturación de la red.
+
+El encabezado UDP es minimalista y solo contiene la información esencial para la entrega del datagrama (puertos y longitud) y una verificación básica de errores (checksum). Carece de mecanismos de confiabilidad, control de flujo o control de congestión, lo que lo hace más rápido y con menor sobrecarga, pero a expensas de la garantía de entrega.
+
+### Comparación de las Métricas de Rendimiento
+Basándonos en las métricas obtenidas para 100 muestras enviadas a una frecuencia de ~1 segundo:
+
+| Métrica           | TCP (1.c)    | UDP (2.c)     |
+|:--------------    |:------------:|:------------: |
+|Muestras           | 100          | 100           |
+|Latencia promedio  | 0.100 ms     | 0.076 ms      |
+|Latencia mínima	| 0.054 ms	   | 0.055 ms      |    |
+|Latencia máxima	| 0.456 ms	   | 0.206 ms      |
+|Jitter	            | 0.004 ms	   | 0.002 ms      |
+
+
+- **Latencia Promedio:** UDP presenta una latencia promedio menor (0.076 ms) que TCP (0.100 ms). Esto es esperable, ya que UDP es un protocolo sin conexión y sin sobrecarga de control de flujo, control de congestión o retransmisiones. TCP, al garantizar la entrega confiable y el orden de los paquetes, introduce una sobrecarga adicional que se traduce en una mayor latencia.
+
+- **Latencia Mínima:** Las latencias mínimas son muy similares (0.054 ms para TCP y 0.055 ms para UDP). Esto sugiere que en condiciones ideales, cuando no hay congestión o problemas de red, ambos protocolos pueden transmitir datos muy rápidamente, siendo el overhead mínimo en ambos casos.
+
+- **Latencia Máxima:** TCP muestra una latencia máxima significativamente mayor (0.456 ms) que UDP (0.206 ms). La mayor latencia máxima en TCP puede deberse a sus mecanismos de retransmisión en caso de pérdida de paquetes, ventanas de congestión, o el establecimiento/cierre de la conexión (aunque para paquetes individuales en una secuencia de 100, los ACKs y el control de flujo son más relevantes). UDP, al no tener estos mecanismos, simplemente envía los paquetes; si se pierden, no hay retransmisión que aumente la latencia en un paquete específico, aunque la pérdida de datos sería mayor.
+
+- **Jitter:** UDP presenta un jitter ligeramente menor (0.002 ms) que TCP (0.004 ms). El jitter mide la variación en la latencia. Un jitter menor en UDP indica una entrega más consistente en el tiempo, sin las variaciones que pueden introducir los mecanismos de control de TCP (como las esperas por ACKs o las retransmisiones). En aplicaciones sensibles al tiempo real (como voz o video), un jitter bajo es crucial.
+
+Como conclusión, UDP es generalmente más rápido y tiene menor sobrecarga, lo que se refleja en una latencia promedio y jitter ligeramente menores, y una latencia máxima menos pronunciada que TCP en este escenario controlado. Sin embargo, no garantiza la entrega ni el orden.
+TCP, aunque introduce una latencia y un jitter ligeramente mayores debido a su complejidad y mecanismos de confiabilidad, es esencial para aplicaciones donde la integridad de los datos y el orden de entrega son críticos (como la transferencia de archivos, navegación web, etc.). La mayor latencia máxima en TCP podría ser un indicio de que los mecanismos de confiabilidad están actuando para asegurar la entrega.
+
+
 ## 4.a) 
 El **encriptado simétrico** utiliza una única clave secreta que emplean tanto el transmisor como el receptor, ya sea para encriptar o para desencriptar los mensajes. Es un método sencillo, muy eficiente y rápido, ideal para cifrar grandes volúmenes de datos (por ejemplo, bases de datos o almacenamiento). No obstante, su principal desafío es la distribución segura de la clave: si alguien la intercepta, todo el sistema queda comprometido. 
 
