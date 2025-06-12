@@ -55,6 +55,58 @@ El servidor escucha en un puerto determinado y registra los mensajes recibidos.
 
 El envío se realiza a intervalos configurables (por defecto 1 segundo) y se implementó una opción para alternar entre TCP y UDP mediante argumento de línea de comandos.
 
+Se ejecutaron los scripts cliente y servidor utilizando el protocolo TCP sobre el puerto 12345. El cliente envió paquetes con identificadores únicos cada 1 segundo, mientras que el servidor los recibió y registró.
+
+Para verificar el correcto tránsito de los paquetes, se utilizó Wireshark sobre la interfaz de red Wi-Fi. Se aplicó el filtro:
+
+```bash
+tcp.port == 12345
+```
+<img src="/Practico/Laboratorio5/Imagenes_tp5/1.jpg" >
+y se capturó la comunicación entre las direcciones IP 192.168.100.26 (cliente) y 192.168.100.24 (servidor).
+
+En la Figura se muestra un paquete TCP seleccionado. En la parte inferior del panel, se observa claramente el contenido del paquete:
+
+```bash
+Taylor_Switch_0
+```
+Este contenido aparece en la sección "Data" del paquete, lo cual indica que la transmisión fue exitosa y el mensaje llegó intacto al destino.
+
+Confirmación de recepción por parte del servidor:
+
+<img src="/Practico/Laboratorio5/Imagenes_tp5/2.jpg" >
+
+Luego de recibir el paquete TCP con el contenido "Taylor_Switch_0", el servidor responde con un segmento TCP ACK dirigido al cliente.
+
+En la Figura se muestra dicho paquete, donde se observa que:
+- La IP origen es 192.168.100.24 (servidor).
+- La IP destino es 192.168.100.26 (cliente).
+- El puerto origen es 12345 (puerto del servidor).
+- El paquete tiene longitud 0 en su carga útil (solo es un ACK).
+- El flag ACK está activado, confirmando que el mensaje fue recibido correctamente.
+
+Este comportamiento es consistente con el protocolo TCP, donde cada segmento de datos enviado debe ser confirmado con un paquete ACK desde el receptor.
+
+Carga útil del paquete TCP con el mensaje Taylor_Switch_0:
+
+<img src="/Practico/Laboratorio5/Imagenes_tp5/3.jpg" >
+
+Se muestra en detalle la carga útil del paquete TCP, destacando los bytes transmitidos como parte del mensaje.
+
+La cadena Taylor_Switch_0 aparece codificada en ASCII en la parte inferior derecha de la vista hexadecimal.
+
+Esta carga útil corresponde al identificador generado por el cliente y enviado al servidor a través del puerto TCP 12345.
+
+La porción seleccionada incluye los siguientes bytes:
+```bash
+54 61 79 6c 6f 72 5f 53 77 69 74 63 68 5f 30
+```
+que, en ASCII, representan exactamente:
+```bash
+T  a  y  l  o  r  _  S  w  i  t  c  h  _  0
+```
+Esto confirma que los paquetes no solo están siendo transmitidos correctamente, sino que la información transportada puede ser interpretada sin errores desde el análisis de red.
+
 ## 1.b) Log de paquetes con timestamp
 Ambos scripts registran los eventos de envío y recepción de paquetes en un archivo de log (log.txt). Cada línea contiene:
 - El tipo de evento (SENT o RECEIVED),
@@ -117,14 +169,59 @@ avg_jitter = sum(jitter_values) / len(jitter_values)
             Latencia máxima: 0.456 ms
             Jitter: 0.004 ms
 
-        Métricas para UDP:
-            
-            Muestras: 100
-            Latencia promedio: 0.076 ms
-            Latencia mínima: 0.055 ms
-            Latencia máxima: 0.206 ms
-            Jitter: 0.002 ms       
+## Scripts Python para envío y recepción de paquetes por UDP
+## 2.a) Envío y recepción de paquetes UDP
+Para verificar el correcto funcionamiento de la comunicación bajo el protocolo UDP, se ejecutaron los scripts client.py y server.py utilizando --protocol udp.
 
+La herramienta Wireshark fue utilizada para capturar los paquetes. Se aplicó el filtro:
+
+ ```bash
+udp.port == 1234
+ ```
+
+<img src="/Practico/Laboratorio5/Imagenes_tp5/4.jpg" >
+<img src="/Practico/Laboratorio5/Imagenes_tp5/5.jpg" >
+
+Se observó tráfico proveniente del cliente (192.168.100.26) hacia el servidor (192.168.100.24) a través del puerto 1234.
+
+En la Figura  se muestra un paquete UDP capturado, el cual contiene en su payload la cadena:
+
+ ```bash
+Taylor_Switch_58
+ ```
+En la sección de datos del paquete, se observa el siguiente contenido en ASCII:
+
+```bash
+54 61 79 6c 6f 72 5f 53 77 69 74 63 68 5f 35 38
+T  a  y  l  o  r  _  S  w  i  t  c  h  _  5  8
+```
+Esto confirma que el mensaje enviado por el cliente llegó íntegro y sin modificación al servidor usando UDP, demostrando el funcionamiento básico de la transmisión sin conexión.
+## 2.b) Log de paquetes con timestamp 
+Al igual que en la implementación para TCP, los scripts cliente y servidor fueron adaptados para registrar los eventos de envío y recepción de paquetes UDP en el archivo log.txt.
+
+Cada línea del log incluye:
+- El tipo de evento (SENT o RECEIVED),
+- El identificador del mensaje (Taylor_Switch_XX),
+- El timestamp del momento del evento (en segundos desde Epoch),
+- El protocolo usado (udp).
+
+Esto permite un análisis posterior del rendimiento de la comunicación, incluyendo el cálculo de métricas como latencia y jitter.
+Ejemplo de log UDP:
+
+ ```bash
+SENT Taylor_Switch_58 at 1718210220.322 - Protocol: udp
+RECEIVED Taylor_Switch_58 at 1718210220.373 - Protocol: udp
+ ```
+## 2.c): Métricas de la conexión UDP
+
+ ```bash
+ Métricas para UDP:
+     Muestras: 100
+     Latencia promedio: 0.076 ms
+     Latencia mínima: 0.055 ms
+     Latencia máxima: 0.206 ms
+     Jitter: 0.002 ms
+ ``` 
 ## 4.a) 
 El **encriptado simétrico** utiliza una única clave secreta que emplean tanto el transmisor como el receptor, ya sea para encriptar o para desencriptar los mensajes. Es un método sencillo, muy eficiente y rápido, ideal para cifrar grandes volúmenes de datos (por ejemplo, bases de datos o almacenamiento). No obstante, su principal desafío es la distribución segura de la clave: si alguien la intercepta, todo el sistema queda comprometido. 
 
