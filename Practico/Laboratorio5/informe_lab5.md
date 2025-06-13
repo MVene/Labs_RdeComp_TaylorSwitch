@@ -301,3 +301,76 @@ Desventajas:
 - La validación de claves (certificados, infraestructura PKI) añade complejidad adicional 
 
 
+## 4.b)
+
+Se seleccionó la librería ``cryptography``, que proporciona herramientas de alto nivel para implementar cifrado simétrico y asimétrico de manera segura y sencilla en Python. En particular, se utilizó el esquema ``Fernet``, que es parte de esta librería y garantiza:
+
+- **Autenticidad y confidencialidad**: cada mensaje está autenticado con HMAC y cifrado simétricamente con AES-128 en modo CBC.
+
+- **Simplicidad de uso**: Fernet permite cifrar y descifrar mensajes mediante una única clave secreta compartida.
+
+- **Codificación segura**: los mensajes cifrados son cadenas codificadas en Base64, listas para transmitirse como texto.
+
+Para su uso, se generó una clave secreta (secret.key) que es compartida entre el cliente y el servidor. El cliente cifra la carga útil antes de enviarla, y el servidor la descifra tras recibirla.
+
+## 4.c) Captura e identificación de la carga útil cifrada
+
+Se ejecutaron ambos scripts (``crypto_client.py`` y ``crypto_server.py``) usando el protocolo TCP, enviando una serie de mensajes cifrados desde el cliente hacia el servidor.
+
+Durante la ejecución, se capturó el tráfico con Wireshark, aplicando un filtro sobre el puerto destino (tcp.port == 12345) para analizar los paquetes transmitidos.
+
+Se seleccionó un paquete aleatorio de la secuencia, donde se identificó la carga útil cifrada en el campo de datos del segmento TCP. Esta carga consistía en una cadena codificada en Base64 mostrada a continuación:
+
+<img src="Imagenes_tp5/6.png" >
+
+<img src="Imagenes_tp5/7.png" >
+
+Comparando esta trama con los resultados observados en los ítems 1.a) y 2.a) (donde la carga útil era texto plano), se verificó que ahora el contenido no es legible directamente, confirmando que la encriptación se encuentra aplicada correctamente.
+
+Además, en el lado del servidor, el mensaje fue recibido y descifrado correctamente, registrándose en el log de la siguiente manera:
+
+<img src="Imagenes_tp5/8.png" >
+
+
+Esto valida que el esquema de cifrado simétrico aplicado permite proteger la integridad y confidencialidad de los datos durante su transmisión, manteniendo la funcionalidad del sistema de comunicación.
+
+Se repitieron los mismos pasos utilizando el protocolo UDP, obteniéndose el siguiente resultado:
+
+<img src="Imagenes_tp5/9.png" >
+
+En este caso, la carga útil cifrada se identificó en el campo de datos del datagrama UDP, al igual que en TCP, lo que confirma que la implementación de cifrado funciona de manera equivalente para ambos protocolos.
+
+Asimismo, se verificó que el servidor recibió y descifró correctamente los mensajes enviados por el cliente, como se evidencia en el log:
+
+<img src="Imagenes_tp5/10.png" >
+
+## 4.d)
+
+Cuando dos computadoras se encuentran a gran distancia y no han intercambiado información previamente, no es posible utilizar directamente cifrado simétrico como el implementado en los scripts actuales, ya que este requiere que ambas partes conozcan de antemano la misma clave secreta.
+
+Una solución es utilizar cifrado asimétrico, también conocido como criptografía de clave pública. Este sistema utiliza dos claves:
+
+- **Clave pública**, que se puede compartir libremente.
+
+- **Clave privada**, que se mantiene en secreto.
+
+**Implementación**
+
+- **Generación de claves:** Cada computadora genera su propio par de claves (pública y privada), por ejemplo, usando RSA. La clave pública puede enviarse abiertamente por la red (incluso antes de enviar los datos cifrados).
+
+- **Intercambio de claves públicas:** Al iniciar la comunicación, el cliente y el servidor intercambian sus claves públicas.
+
+- **Cifrado de mensajes:** El cliente cifra los mensajes utilizando la clave pública del servidor. Solo el servidor podrá descifrar los mensajes con su clave privada.
+
+
+**Integración conceptual en los scripts**
+
+En lugar de cargar una clave compartida desde un archivo (secret.key), cada script generaría o cargaría un par de claves asimétricas (por ejemplo, private.pem y public.pem).
+
+Durante la conexión inicial, el cliente y el servidor intercambiarían sus claves públicas.
+
+El cliente cifraría el contenido del mensaje con la clave pública del servidor antes de enviarlo.
+
+El servidor lo descifraría con su clave privada al recibirlo.
+
+Podría usarse una biblioteca como cryptography.hazmat o PyCryptodome para manejar claves RSA y realizar el cifrado/descifrado.
